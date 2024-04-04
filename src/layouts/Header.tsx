@@ -1,8 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { IoIosSearch } from 'react-icons/io'
 import Logo from '../components/Logo'
 
 export default function Header() {
+    const [search, setSearch] = useState<string>('')
+    const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value)
+    }
+
+    const handleClickSearch = () => {
+        console.log(search)
+    }
+
     return (
         <header className="flex flex-row justify-between p-3 bg-primary">
             <Logo />
@@ -16,11 +25,13 @@ export default function Header() {
                         type="search"
                         className="bg-transparent text-md outline-none"
                         placeholder="도서를 검색하세요"
+                        onChange={handleChangeSearch}
                     />
                     <button
                         type="submit"
                         className="text-2xl text-primary"
                         aria-label="search button"
+                        onClick={handleClickSearch}
                     >
                         <IoIosSearch />
                     </button>
