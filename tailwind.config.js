@@ -7,6 +7,9 @@ module.exports = {
     ],
     theme: {
         extend: {
+            colors: {
+                primary: '#1E863B',
+            },
             fontFamily: {
                 pretendard: ['Pretendard'],
                 danjo: ['Danjo'],
