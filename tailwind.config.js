@@ -9,8 +9,11 @@ module.exports = {
         extend: {
             colors: {
                 primary: '#1E863B',
+                primaryVariant: '#FFFDEE',
                 gray: '#a0a0a0',
                 lightGray: '#d7d7d7',
+                kakao: '#FEE500',
+                naver: '#02C75A',
             },
             fontFamily: {
                 pretendard: ['Pretendard'],
