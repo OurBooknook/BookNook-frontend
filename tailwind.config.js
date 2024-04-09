@@ -10,6 +10,7 @@ module.exports = {
             colors: {
                 primary: '#1E863B',
                 primaryVariant: '#FFFDEE',
+                accent: '#F7F6BB',
                 gray: '#a0a0a0',
                 lightGray: '#d7d7d7',
                 kakao: '#FEE500',
