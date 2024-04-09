@@ -19,7 +19,7 @@ export default function BookDetail() {
                         alt="도서 이미지"
                         className="w-96 h-fit"
                     />
-                    <div className="relative w-full">
+                    <div className="flex flex-col gap-12 w-full">
                         <div className="flex flex-col gap-3 text-xl">
                             <h1 className="text-4xl">
                                 도서 제목이 이렇게나 길어지면 어떻게 보여질까요?
@@ -63,7 +63,7 @@ export default function BookDetail() {
                                 어떻게 보여질까요? 한번 확인해보겠습니다
                             </p>
                         </div>
-                        <div className="absolute bottom-0 flex flex-col gap-2 ">
+                        <div className="flex flex-col gap-2 w-fit">
                             <p className="text-xl">
                                 담은 사람{' '}
                                 <span className="font-bold text-primary">
