@@ -33,6 +33,12 @@
     -webkit-box-orient: vertical;
 }
 
+@layer components {
+    .btn-list-tab {
+        @apply hover:text-primary focus:text-primary;
+    }
+}
+
 * {
     font-family: 'Pretendard';
 }
