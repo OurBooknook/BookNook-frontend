@@ -1,6 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
+import todayStr from '../utils/getTodayStr'
 
 export default function ReadingBook() {
+    const today = todayStr()
+    const [startDate, setStartDate] = useState<string>(today)
+    const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setStartDate(e.target.value)
+        console.log(today)
+    }
     return (
         <>
             <div className="flex flex-col gap-2 mb-6">
@@ -11,7 +18,10 @@ export default function ReadingBook() {
                         <input
                             type="date"
                             name="startDate"
+                            max={today}
+                            value={startDate}
                             className="font-bold"
+                            onChange={(e) => handleChangeStartDate(e)}
                         />
                     </div>
                 </div>
