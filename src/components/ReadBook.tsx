@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
-import todayStr from '../utils/getTodayStr'
 
 export default function ReadBook() {
     // FIXME 효율적이지 않은 코드 같음. 하드코딩 아닌 방식으로 구현
     const [starScore, setStarScore] = useState<number[]>([1, 1, 1, 0, 0])
-    const [startDate, setStartDate] = useState<string>(todayStr())
-    const [endDate, setEndDate] = useState<string>(todayStr())
+    const [startDate, setStartDate] = useState<string>('')
+    const [endDate, setEndDate] = useState<string>('')
     const handleClickStarScore = (value: number) => {
         switch (value) {
             case 0:

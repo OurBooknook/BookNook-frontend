@@ -3,7 +3,7 @@ import todayStr from '../utils/getTodayStr'
 
 export default function ReadingBook() {
     const today = todayStr()
-    const [startDate, setStartDate] = useState<string>(today)
+    const [startDate, setStartDate] = useState<string>('')
     const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
         setStartDate(e.target.value)
         console.log(today)
