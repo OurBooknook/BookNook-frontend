@@ -5,16 +5,20 @@ import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
 import SearchItem from '../components/SearchItem'
 import searchResult from '../data/SearchResult.json'
-import LibraryDetailInfo from '../components/LibraryDetailInfo'
+import ReadRecordInfo from '../components/ReadRecordInfo'
 import Record from '../components/Record'
+import ReadingRecordInfo from '../components/ReadingRecordInfo'
+import WishRecordInfo from '../components/WishRecordInfo'
+import { LibraryDetailType } from '../types/libraryType'
 
 export default function LibraryDetail() {
-    const dummyData = {
+    const dummyData: LibraryDetailType = {
+        status: 'wish',
         rate: 3,
         startDate: '2024-03-01',
         endDate: '2024-03-05',
-        pages: null,
-        expectation: null,
+        page: 100,
+        expectation: '짱 기대중',
         recordList: [
             {
                 recordId: 1,
@@ -66,7 +70,25 @@ export default function LibraryDetail() {
                     </ul>
                 </div>
                 <SearchItem searchResult={searchResult.documents[0]} />
-                <LibraryDetailInfo />
+                {dummyData.status === 'read' && (
+                    <ReadRecordInfo
+                        rate={dummyData.rate ?? 0}
+                        startDate={dummyData.startDate ?? '없음'}
+                        endDate={dummyData.endDate ?? '없음'}
+                    />
+                )}
+                {dummyData.status === 'reading' && (
+                    <ReadingRecordInfo
+                        page={dummyData.page ?? 0}
+                        startDate={dummyData.startDate ?? '없음'}
+                    />
+                )}
+                {dummyData.status === 'wish' && (
+                    <WishRecordInfo
+                        expectation={dummyData.expectation ?? '없음'}
+                    />
+                )}
+
                 <div className="mt-20">
                     <p className="text-lg">
                         총{' '}
