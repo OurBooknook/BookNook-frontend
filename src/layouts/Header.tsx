@@ -1,15 +1,19 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { IoIosSearch } from 'react-icons/io'
 import Logo from '../components/Logo'
 
 export default function Header() {
     const [search, setSearch] = useState<string>('')
+    const navigate = useNavigate()
+
     const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
     }
 
-    const handleClickSearch = () => {
-        console.log(search)
+    const handleClickSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        navigate(`/search?query=${search}`)
     }
 
     return (
@@ -25,6 +29,7 @@ export default function Header() {
                         <input
                             type="search"
                             className="bg-transparent text-md outline-none"
+                            value={search}
                             placeholder="도서를 검색하세요"
                             onChange={handleChangeSearch}
                         />
