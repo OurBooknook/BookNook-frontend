@@ -6,24 +6,6 @@ import SearchItem from '../components/SearchItem'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 
-// interface BookType {
-//     title: string
-//     contents: string
-//     isbn: string
-//     dateTime: string
-//     authors: string[]
-//     publisher: string
-//     translators: string[]
-//     thumbnail: string
-// }
-// interface SearchResultType {
-//     documents: BookType[]
-//     meta: {
-//         totalCount: number
-//         pageableCount: number
-//         isEnd: boolean
-//     }
-// }
 export default function SearchList() {
     return (
         <>
