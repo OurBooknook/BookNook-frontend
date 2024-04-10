@@ -10,6 +10,7 @@ import Record from '../components/Record'
 import ReadingRecordInfo from '../components/ReadingRecordInfo'
 import WishRecordInfo from '../components/WishRecordInfo'
 import { LibraryDetailType } from '../types/libraryType'
+import { statusKo } from '../types/bookType'
 
 export default function LibraryDetail() {
     const dummyData: LibraryDetailType = {
@@ -42,7 +43,7 @@ export default function LibraryDetail() {
             <Wrapper>
                 <div className="flex justify-between mb-6">
                     <Chip
-                        label="읽은 책"
+                        label={statusKo[dummyData.status]}
                         color="success"
                         sx={{
                             fontSize: '1.2rem',
