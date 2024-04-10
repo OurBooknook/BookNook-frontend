@@ -1,8 +1,8 @@
 import React from 'react'
 import { Pagination } from '@mui/material'
 import searchResult from '../data/SearchResult.json'
-import SearchItem from './SearchItem'
 import Wrapper from '../layouts/Wrapper'
+import SearchItem from '../components/SearchItem'
 
 // interface BookType {
 //     title: string
