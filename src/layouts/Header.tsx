@@ -12,8 +12,12 @@ export default function Header() {
     }
 
     const handleClickSearch = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        navigate(`/search?query=${search}`)
+        if (search.length !== 0) {
+            e.preventDefault()
+            navigate(`/search?query=${search}`)
+        } else {
+            alert('검색어를 입력하세요!')
+        }
     }
 
     return (

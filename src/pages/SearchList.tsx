@@ -6,6 +6,7 @@ import SearchItem from '../components/SearchItem'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 import getSearchBook, { BookData } from '../services/searchBook'
+import EmptyBookResult from '../components/EmptyBookResult'
 
 export default function SearchList() {
     const [searchResult, setSearchResult] = useState<BookData>()
@@ -13,7 +14,14 @@ export default function SearchList() {
     const query = searchParams.get('query') ?? ''
 
     useEffect(() => {
-        getSearchBook(query).then((result) => setSearchResult(result))
+        if (query !== '') {
+            getSearchBook(query).then((result) => setSearchResult(result))
+        } else {
+            setSearchResult({
+                meta: { total_count: 0, pageable_count: 0, is_end: true },
+                documents: [],
+            })
+        }
     }, [query])
 
     return (
@@ -29,11 +37,15 @@ export default function SearchList() {
                 </p>
                 <div className="flex flex-col gap-6">
                     {searchResult &&
-                        searchResult.documents.map((document) => (
-                            <SearchItem
-                                searchResult={document}
-                                key={document.isbn}
-                            />
+                        (searchResult.meta.total_count === 0 ? (
+                            <EmptyBookResult />
+                        ) : (
+                            searchResult.documents.map((document) => (
+                                <SearchItem
+                                    searchResult={document}
+                                    key={document.isbn}
+                                />
+                            ))
                         ))}
                 </div>
                 <div className="flex justify-center mt-10">
