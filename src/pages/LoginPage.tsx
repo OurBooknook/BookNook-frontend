@@ -1,4 +1,5 @@
 import React from 'react'
+import { FcGoogle } from 'react-icons/fc'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 import { SiNaver } from 'react-icons/si'
 
@@ -22,17 +23,24 @@ export default function LoginPage() {
                 <div className="flex flex-col gap-4">
                     <button
                         type="button"
-                        className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-kakao text-black rounded-md"
+                        className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-kakao text-black rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
                     >
                         <RiKakaoTalkFill />
                         카카오로 로그인
                     </button>
                     <button
                         type="button"
-                        className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-naver text-white rounded-md"
+                        className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-naver text-white rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
                     >
                         <SiNaver />
                         네이버로 로그인
+                    </button>
+                    <button
+                        type="button"
+                        className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-white text-black rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+                    >
+                        <FcGoogle />
+                        구글로 로그인
                     </button>
                 </div>
             </div>
