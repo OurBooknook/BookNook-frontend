@@ -2,6 +2,7 @@ import React from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { RiKakaoTalkFill } from 'react-icons/ri'
 import { SiNaver } from 'react-icons/si'
+import { Link } from 'react-router-dom'
 
 export default function LoginPage() {
     return (
@@ -21,27 +22,30 @@ export default function LoginPage() {
             <div className="flex flex-col items-center mx-auto gap-6 w-fit h-fit p-12 bg-white rounded-2xl z-10 shadow-[0_8px_30px_rgb(0,0,0,0.12)]">
                 <h1 className="text-2xl font-bold">로그인</h1>
                 <div className="flex flex-col gap-4">
-                    <button
+                    <Link
+                        to="http://localhost:8080/oauth2/authorization/kakao"
                         type="button"
                         className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-kakao text-black rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
                     >
                         <RiKakaoTalkFill />
                         카카오로 로그인
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                        to="http://localhost:8080/oauth2/authorization/naver"
                         type="button"
                         className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-naver text-white rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
                     >
                         <SiNaver />
                         네이버로 로그인
-                    </button>
-                    <button
+                    </Link>
+                    <Link
+                        to="http://localhost:8080/oauth2/authorization/google"
                         type="button"
                         className="flex gap-2 justify-center items-center px-10 py-4 w-[30rem] text-xl bg-white text-black rounded-md shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
                     >
                         <FcGoogle />
                         구글로 로그인
-                    </button>
+                    </Link>
                 </div>
             </div>
         </div>
