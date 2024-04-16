@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Chip } from '@mui/material'
+import { useParams } from 'react-router-dom'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
 import SearchItem from '../components/SearchItem'
-import searchResult from '../data/SearchResult.json'
 import ReadRecordInfo from '../components/ReadRecordInfo'
 import Record from '../components/Record'
 import ReadingRecordInfo from '../components/ReadingRecordInfo'
@@ -12,7 +12,21 @@ import WishRecordInfo from '../components/WishRecordInfo'
 import { LibraryDetailType } from '../types/libraryType'
 import { statusKo } from '../types/bookType'
 
+import { searchDocumentType } from '../types/searchResultType'
+import getSearchBook from '../services/searchBook'
+
 export default function LibraryDetail() {
+    const { isbn } = useParams()
+    const [searchDocument, setSearchDocument] = useState<searchDocumentType>()
+
+    useEffect(() => {
+        if (isbn !== undefined) {
+            getSearchBook(isbn).then((result) =>
+                setSearchDocument(result.documents[0])
+            )
+        }
+    }, [])
+
     const dummyData: LibraryDetailType = {
         status: 'wish',
         rate: 3,
@@ -70,7 +84,7 @@ export default function LibraryDetail() {
                         </li>
                     </ul>
                 </div>
-                <SearchItem searchResult={searchResult.documents[0]} />
+                {searchDocument && <SearchItem searchResult={searchDocument} />}
                 {dummyData.status === 'read' && (
                     <ReadRecordInfo
                         rate={dummyData.rate ?? 0}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { IoIosSearch } from 'react-icons/io'
 import Logo from '../components/Logo'
 
@@ -23,11 +23,17 @@ export default function Header() {
     return (
         <header className="flex justify-center w-full bg-primary">
             <div className="flex flex-row justify-between p-3 w-[90rem]">
-                <Logo />
+                <Link to="/">
+                    <Logo />
+                </Link>
                 <div className="flex flex-row justify-between gap-4">
                     <ul className="flex flex-row items-center gap-4 text-lg text-white">
-                        <li>서재</li>
-                        <li>통계</li>
+                        <li>
+                            <Link to="/library">서재</Link>
+                        </li>
+                        <li>
+                            <Link to="/statistics">통계</Link>
+                        </li>
                     </ul>
                     <form className="flex items-center px-4 py-0 rounded-3xl bg-white">
                         <input

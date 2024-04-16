@@ -1,26 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import getFormattedDate from '../utils/getFormattedDate'
-
-interface SearchResultType {
-    title: string
-    authors: string[]
-    translators: string[]
-    publisher: string
-    datetime: string
-    contents: string
-    isbn: string
-    thumbnail: string
-    // 아래는 사용 x
-    url: string
-    price: number
-    sale_price: number
-    status: string
-}
+import getFormattedIsbn from '../utils/getFormattedIsbn'
+import { searchDocumentType } from '../types/searchResultType'
 
 export default function SearchItem({
     searchResult,
 }: {
-    searchResult: SearchResultType
+    searchResult: searchDocumentType
 }) {
     return (
         <div className="w-full flex gap-4 pb-4 border-b-[0.5px] border-lightGray">
@@ -32,9 +19,12 @@ export default function SearchItem({
             />
             {/* SECTION - 도서 정보 */}
             <div className="flex flex-col gap-1">
-                <a href="#test" className="text-xl font-bold hover:underline">
+                <Link
+                    to={`/search/${getFormattedIsbn(searchResult.isbn)}`}
+                    className="text-xl font-bold hover:underline"
+                >
                     {searchResult.title}
-                </a>
+                </Link>
                 <div className="flex gap-2">
                     <ul className="flex gap-2">
                         <span>저자: </span>

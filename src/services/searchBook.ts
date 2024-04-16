@@ -1,25 +1,9 @@
 import axios from 'axios'
+import { searchDocumentType, searchMetaType } from '../types/searchResultType'
 
 export interface BookData {
-    meta: {
-        total_count: number
-        pageable_count: number
-        is_end: boolean
-    }
-    documents: {
-        title: string
-        contents: string
-        url: string
-        isbn: string
-        datetime: string
-        authors: string[]
-        publisher: string
-        translators: string[]
-        price: number
-        sale_price: number
-        thumbnail: string
-        status: string
-    }[]
+    meta: searchMetaType
+    documents: searchDocumentType[]
 }
 
 const getSearchBook = async (query: string): Promise<BookData> => {
