@@ -1,77 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Pagination } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
+import getLibrary, { LibraryType } from '../services/library'
+import { Status } from '../types/bookType'
+import getFormattedIsbn from '../utils/getFormattedIsbn'
+import getSearchBook from '../services/searchBook'
+
+interface LibraryListType {
+    isbn: string
+    title: string
+    authors: string[]
+    thumbnail: string
+}
 
 export default function Library() {
-    const dummyBook = [
-        {
-            id: 1,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 2,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 3,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 4,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 5,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 6,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 7,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 8,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 9,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-        {
-            id: 10,
-            thumbnail:
-                'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189782900.jpg',
-            isbn: '1235',
-        },
-    ]
+    const [library, setLibrary] = useState<LibraryListType[]>([])
+    const [status, setStatus] = useState<Status>('read')
+    const { data: isbns } = useQuery<LibraryType, Error>({
+        queryKey: ['library', status],
+        queryFn: () => getLibrary(status),
+    })
+
+    useEffect(() => {
+        const libraryList: LibraryListType[] = []
+        isbns?.bookList.forEach((isbn) => {
+            const formattedIsbn = getFormattedIsbn(isbn)
+            getSearchBook(formattedIsbn).then((result) => {
+                const { title, authors, thumbnail } = result.documents[0]
+                libraryList.push({ isbn, title, authors, thumbnail })
+            })
+        })
+
+        setLibrary(libraryList)
+    }, [isbns])
+
+    const isStatus = (value: string): value is Status => {
+        return Object.values(status).includes(value)
+    }
 
     const handleClickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
         const tabId = e.currentTarget.id
-        console.log(tabId)
+        if (isStatus(tabId)) {
+            setStatus(tabId)
+        }
     }
     return (
         <>
@@ -109,13 +84,24 @@ export default function Library() {
                         </button>
                     </li>
                 </ul>
-                <div className="grid grid-cols-5 gap-x-8 gap-y-16 mb-20">
-                    {dummyBook.map((book) => (
-                        <Link to={`/library/${book.isbn}`} key={book.id}>
-                            <img src={book.thumbnail} alt="book thumbnail" />
-                        </Link>
-                    ))}
-                </div>
+
+                {library.length > 0 ? (
+                    <div className="grid grid-cols-5 gap-x-8 gap-y-16 mb-20">
+                        {library.map((book) => (
+                            <Link to={`/library/${book.isbn}`} key={book.isbn}>
+                                <img
+                                    src={book.thumbnail}
+                                    alt="book thumbnail"
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex justify-center items-center py-20">
+                        <p className="">담긴 책이 없습니다</p>
+                    </div>
+                )}
+
                 <Pagination count={10} size="large" className="w-fit mx-auto" />
             </Wrapper>
             <Footer />
