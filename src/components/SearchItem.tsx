@@ -2,27 +2,12 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import getFormattedDate from '../utils/getFormattedDate'
 import getFormattedIsbn from '../utils/getFormattedIsbn'
-
-interface SearchResultType {
-    title: string
-    authors: string[]
-    translators: string[]
-    publisher: string
-    datetime: string
-    contents: string
-    isbn: string
-    thumbnail: string
-    // 아래는 사용 x
-    url: string
-    price: number
-    sale_price: number
-    status: string
-}
+import { searchDocumentType } from '../types/searchResultType'
 
 export default function SearchItem({
     searchResult,
 }: {
-    searchResult: SearchResultType
+    searchResult: searchDocumentType
 }) {
     return (
         <div className="w-full flex gap-4 pb-4 border-b-[0.5px] border-lightGray">
