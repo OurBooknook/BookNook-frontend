@@ -1,7 +1,6 @@
 const getFormattedIsbn = (isbn: string) => {
     const arr = isbn.split(' ')
-
-    if (arr.length <= 0) {
+    if (arr.length <= 1) {
         return arr[0]
     }
 
