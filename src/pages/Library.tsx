@@ -96,13 +96,29 @@ export default function Library() {
                 {library.length > 0 ? (
                     <div className="grid grid-cols-5 gap-x-8 gap-y-16 mb-20">
                         {library.map((book) => (
-                            <Link to={`/library/${book.isbn}`} key={book.isbn}>
-                                <img
-                                    src={book.thumbnail}
-                                    alt="book thumbnail"
-                                    className="w-full"
-                                />
-                            </Link>
+                            <div className="flex flex-col gap-3">
+                                <Link
+                                    to={`/library/${book.isbn}`}
+                                    key={book.isbn}
+                                >
+                                    <img
+                                        src={book.thumbnail}
+                                        alt="book thumbnail"
+                                        className="w-full"
+                                    />
+                                </Link>
+                                <div className="flex flex-col gap-1 w-full overflow-hidden">
+                                    <h3 className="text-2xl font-bold">
+                                        {book.title}
+                                    </h3>
+                                    <ul className="flex gap-2">
+                                        {/* eslint-disable react/no-array-index-key */}
+                                        {book.authors.map((author, index) => (
+                                            <li key={index}>{author}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </div>
                         ))}
                     </div>
                 ) : (
