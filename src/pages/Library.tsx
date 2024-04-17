@@ -100,6 +100,7 @@ export default function Library() {
                                 <img
                                     src={book.thumbnail}
                                     alt="book thumbnail"
+                                    className="w-full"
                                 />
                             </Link>
                         ))}
