@@ -6,7 +6,7 @@ import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
 import getLibrary, { LibraryType } from '../services/library'
-import { Status } from '../types/bookType'
+import { Status, statusEn } from '../types/bookType'
 import getFormattedIsbn from '../utils/getFormattedIsbn'
 import getSearchBook from '../services/searchBook'
 
@@ -20,26 +20,35 @@ interface LibraryListType {
 export default function Library() {
     const [library, setLibrary] = useState<LibraryListType[]>([])
     const [status, setStatus] = useState<Status>('read')
+    const [page, setPage] = useState<number>(1)
     const { data: isbns } = useQuery<LibraryType, Error>({
-        queryKey: ['library', status],
-        queryFn: () => getLibrary(status),
+        queryKey: ['library', status, page],
+        queryFn: () => getLibrary(status, page),
+        staleTime: 1000 * 60,
     })
 
     useEffect(() => {
         const libraryList: LibraryListType[] = []
-        isbns?.bookList.forEach((isbn) => {
-            const formattedIsbn = getFormattedIsbn(isbn)
-            getSearchBook(formattedIsbn).then((result) => {
-                const { title, authors, thumbnail } = result.documents[0]
-                libraryList.push({ isbn, title, authors, thumbnail })
-            })
-        })
 
-        setLibrary(libraryList)
+        // FIXME - 유지보수, 여러 가지 기능이 한번에 들어가있음
+        if (isbns?.isbnList && isbns.isbnList.length > 0) {
+            isbns.isbnList.forEach((isbn) => {
+                const formattedIsbn = getFormattedIsbn(isbn)
+
+                getSearchBook(formattedIsbn).then((result) => {
+                    const { title, authors, thumbnail } = result.documents[0]
+                    libraryList.push({ isbn, title, authors, thumbnail })
+                    console.log(libraryList)
+                    setLibrary([...libraryList])
+                })
+            })
+        } else {
+            setLibrary([])
+        }
     }, [isbns])
 
     const isStatus = (value: string): value is Status => {
-        return Object.values(status).includes(value)
+        return Object.values(statusEn).includes(value as Status)
     }
 
     const handleClickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -84,7 +93,6 @@ export default function Library() {
                         </button>
                     </li>
                 </ul>
-
                 {library.length > 0 ? (
                     <div className="grid grid-cols-5 gap-x-8 gap-y-16 mb-20">
                         {library.map((book) => (
@@ -102,7 +110,13 @@ export default function Library() {
                     </div>
                 )}
 
-                <Pagination count={10} size="large" className="w-fit mx-auto" />
+                <Pagination
+                    count={10}
+                    page={page}
+                    onChange={(e, value) => setPage(value)}
+                    size="large"
+                    className="w-fit mx-auto"
+                />
             </Wrapper>
             <Footer />
         </>
