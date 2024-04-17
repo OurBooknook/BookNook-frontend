@@ -128,7 +128,7 @@ export default function Library() {
                 )}
 
                 <Pagination
-                    count={10}
+                    count={isbns?.totalPages}
                     page={page}
                     onChange={(e, value) => setPage(value)}
                     size="large"
