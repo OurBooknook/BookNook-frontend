@@ -1,10 +1,10 @@
 // 책 담기 상태(읽은 책, 읽고 있는 책, 읽고 싶은 책)
-const status = {
+export const statusEn = {
     read: 'read',
     rading: 'reading',
     wish: 'wish',
 } as const
-export type Status = (typeof status)[keyof typeof status]
+export type Status = (typeof statusEn)[keyof typeof statusEn]
 
 // 책 담기 상태 한국어
 export const statusKo = {
