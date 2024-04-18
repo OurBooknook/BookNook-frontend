@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Chip } from '@mui/material'
 import { useParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
@@ -9,11 +11,11 @@ import ReadRecordInfo from '../components/ReadRecordInfo'
 import Record from '../components/Record'
 import ReadingRecordInfo from '../components/ReadingRecordInfo'
 import WishRecordInfo from '../components/WishRecordInfo'
-import { LibraryDetailType } from '../types/libraryType'
 import { statusKo } from '../types/bookType'
-
 import { searchDocumentType } from '../types/searchResultType'
 import getSearchBook from '../services/searchBook'
+import { getLibraryDetail } from '../services/library'
+import { LibraryDetailType } from '../types/libraryType'
 
 export default function LibraryDetail() {
     const { isbn } = useParams()
@@ -27,37 +29,24 @@ export default function LibraryDetail() {
         }
     }, [])
 
-    const dummyData: LibraryDetailType = {
-        status: 'wish',
-        rate: 3,
-        startDate: '2024-03-01',
-        endDate: '2024-03-05',
-        page: 100,
-        expectation: '짱 기대중',
-        recordList: [
-            {
-                recordId: 1,
-                tag: 'review',
-                date: '2024-03-01T09:00:00',
-                content: '오늘은 어쩌구를 읽었다',
-                page: 54,
-            },
-            {
-                recordId: 2,
-                tag: 'review',
-                date: '2024-03-01T09:00:00',
-                content: '오늘은 어쩌구를 읽었다',
-                page: 54,
-            },
-        ],
-    }
+    const { data: libraryDetailData } = useQuery<LibraryDetailType, AxiosError>(
+        {
+            queryKey: ['bookDetail'],
+            queryFn: () => getLibraryDetail(isbn ?? ''),
+        }
+    )
+
     return (
         <div>
             <Header />
             <Wrapper>
                 <div className="flex justify-between mb-6">
                     <Chip
-                        label={statusKo[dummyData.status]}
+                        label={
+                            libraryDetailData !== undefined
+                                ? statusKo[libraryDetailData?.status]
+                                : '없음'
+                        }
                         color="success"
                         sx={{
                             fontSize: '1.2rem',
@@ -85,22 +74,22 @@ export default function LibraryDetail() {
                     </ul>
                 </div>
                 {searchDocument && <SearchItem searchResult={searchDocument} />}
-                {dummyData.status === 'read' && (
+                {libraryDetailData?.status === 'read' && (
                     <ReadRecordInfo
-                        rate={dummyData.rate ?? 0}
-                        startDate={dummyData.startDate ?? '없음'}
-                        endDate={dummyData.endDate ?? '없음'}
+                        rate={libraryDetailData.rate ?? 0}
+                        startDate={libraryDetailData.startDate ?? '없음'}
+                        endDate={libraryDetailData.endDate ?? '없음'}
                     />
                 )}
-                {dummyData.status === 'reading' && (
+                {libraryDetailData?.status === 'reading' && (
                     <ReadingRecordInfo
-                        page={dummyData.page ?? 0}
-                        startDate={dummyData.startDate ?? '없음'}
+                        page={libraryDetailData.page ?? 0}
+                        startDate={libraryDetailData.startDate ?? '없음'}
                     />
                 )}
-                {dummyData.status === 'wish' && (
+                {libraryDetailData?.status === 'wish' && (
                     <WishRecordInfo
-                        expectation={dummyData.expectation ?? '없음'}
+                        expectation={libraryDetailData.expectation ?? '없음'}
                     />
                 )}
 
@@ -108,12 +97,12 @@ export default function LibraryDetail() {
                     <p className="text-lg">
                         총{' '}
                         <span className="font-bold text-primary">
-                            {dummyData.recordList.length}
+                            {libraryDetailData?.recordList.length ?? 0}
                         </span>
                         개의 기록이 있습니다.
                     </p>
                     <div>
-                        {dummyData.recordList.map((record) => (
+                        {libraryDetailData?.recordList.map((record) => (
                             <Record value={record} key={record.recordId} />
                         ))}
                     </div>
