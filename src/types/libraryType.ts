@@ -12,6 +12,7 @@ export type Tag = (typeof tag)[keyof typeof tag]
 
 // 서재 상세 데이터 타입
 export interface LibraryDetailType {
+    isbn: string
     status: Status
     rate: number | null
     startDate: string | null
