@@ -95,8 +95,12 @@ export default function Library() {
                 </ul>
                 {library.length > 0 ? (
                     <div className="grid grid-cols-5 gap-x-8 gap-y-16 mb-20">
-                        {library.map((book) => (
-                            <div className="flex flex-col gap-3">
+                        {/* eslint-disable react/no-array-index-key */}
+                        {library.map((book, libraryIndex) => (
+                            <div
+                                className="flex flex-col gap-3"
+                                key={libraryIndex}
+                            >
                                 <Link
                                     to={`/library/${book.isbn}`}
                                     key={book.isbn}
