@@ -58,3 +58,17 @@ export const getLibraryDetail = async (
 
     return libraryDetail
 }
+
+export const deleteLibrary = async (isbn: string) => {
+    const response = await axios.delete<responseType<null>>(
+        `${process.env.REACT_APP_API}/api/library`,
+        {
+            params: { isbn },
+        }
+    )
+
+    return response
+    // FIXME - 데이터 있을 때 테스트하고 정상 동작하면 변경하기
+    // if (response.data.success) return true
+    // return false
+}
