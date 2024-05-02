@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Chip } from '@mui/material'
-import { useParams } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
+import { redirect, useParams } from 'react-router-dom'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import Header from '../layouts/Header'
 import Footer from '../layouts/Footer'
@@ -14,7 +14,7 @@ import WishRecordInfo from '../components/WishRecordInfo'
 import { statusKo } from '../types/bookType'
 import { searchDocumentType } from '../types/searchResultType'
 import getSearchBook from '../services/searchBook'
-import { getLibraryDetail } from '../services/library'
+import { deleteLibrary, getLibraryDetail } from '../services/library'
 import { LibraryDetailType } from '../types/libraryType'
 
 export default function LibraryDetail() {
@@ -35,6 +35,25 @@ export default function LibraryDetail() {
             queryFn: () => getLibraryDetail(isbn ?? ''),
         }
     )
+
+    const queryClient = useQueryClient()
+    const deleteLibraryMutation = useMutation({
+        mutationFn: () => deleteLibrary(isbn ?? ''),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ['library'],
+            })
+
+            redirect('/library')
+        },
+        onError: (error) => {
+            console.log(error)
+        },
+    })
+
+    const handleDeleteLibrary = () => {
+        deleteLibraryMutation.mutate()
+    }
 
     return (
         <div>
@@ -67,6 +86,7 @@ export default function LibraryDetail() {
                             <button
                                 type="button"
                                 className="text-gray underline"
+                                onClick={handleDeleteLibrary}
                             >
                                 삭제
                             </button>

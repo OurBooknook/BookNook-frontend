@@ -22,7 +22,7 @@ export default function Library() {
     const [status, setStatus] = useState<Status>('read')
     const [page, setPage] = useState<number>(1)
     const { data: isbns } = useQuery<LibraryType, Error>({
-        queryKey: ['library', status, page],
+        queryKey: ['library'],
         queryFn: () => getLibrary(status, page),
         staleTime: 1000 * 60,
     })
