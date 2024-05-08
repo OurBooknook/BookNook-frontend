@@ -38,7 +38,7 @@ export default function SearchList() {
                 <p className="text-lg mb-6">
                     전체{' '}
                     <span className="font-bold text-primary">
-                        {searchResult && searchResult.meta.total_count}
+                        {searchResult && searchResult.meta.pageable_count}
                     </span>
                     건
                 </p>
