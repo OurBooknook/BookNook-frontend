@@ -8,21 +8,28 @@ import Footer from '../layouts/Footer'
 import getSearchBook, { BookData } from '../services/searchBook'
 import EmptyBookResult from '../components/EmptyBookResult'
 
+const SIZE = 10
 export default function SearchList() {
     const [searchResult, setSearchResult] = useState<BookData>()
     const [searchParams] = useSearchParams()
     const query = searchParams.get('query') ?? ''
+    const [page, setPage] = useState<number>(1)
 
     useEffect(() => {
         if (query !== '') {
-            getSearchBook(query).then((result) => setSearchResult(result))
+            getSearchBook(query, page).then((result) => setSearchResult(result))
         } else {
             setSearchResult({
                 meta: { total_count: 0, pageable_count: 0, is_end: true },
                 documents: [],
             })
         }
-    }, [query])
+    }, [query, page])
+
+    const countTotalPages = (cntItems: number) => {
+        const totalPage = Math.floor(cntItems / SIZE) + 1
+        return Math.min(totalPage, 100) // NOTE - 카카오 api 정책 상 page는 최대 100까지 가능
+    }
 
     return (
         <>
@@ -50,7 +57,12 @@ export default function SearchList() {
                 </div>
                 <div className="flex justify-center mt-10">
                     <Pagination
-                        count={searchResult && searchResult.meta.total_count}
+                        page={page}
+                        count={
+                            searchResult &&
+                            countTotalPages(searchResult.meta.pageable_count)
+                        }
+                        onChange={(e, value) => setPage(value)}
                         size="large"
                     />
                 </div>
