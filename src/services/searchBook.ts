@@ -6,7 +6,10 @@ export interface BookData {
     documents: searchDocumentType[]
 }
 
-const getSearchBook = async (query: string): Promise<BookData> => {
+const getSearchBook = async (
+    query: string,
+    page: number
+): Promise<BookData> => {
     const response = await axios.get<BookData>(
         'https://dapi.kakao.com/v3/search/book',
         {
@@ -15,6 +18,7 @@ const getSearchBook = async (query: string): Promise<BookData> => {
             },
             params: {
                 query,
+                page,
             },
         }
     )
