@@ -35,7 +35,7 @@ export default function Library() {
             isbns.isbnList.forEach((isbn) => {
                 const formattedIsbn = getFormattedIsbn(isbn)
 
-                getSearchBook(formattedIsbn).then((result) => {
+                getSearchBook(formattedIsbn, 1).then((result) => {
                     const { title, authors, thumbnail } = result.documents[0]
                     libraryList.push({ isbn, title, authors, thumbnail })
                     console.log(libraryList)

@@ -23,7 +23,7 @@ export default function LibraryDetail() {
 
     useEffect(() => {
         if (isbn !== undefined) {
-            getSearchBook(isbn).then((result) =>
+            getSearchBook(isbn, 1).then((result) =>
                 setSearchDocument(result.documents[0])
             )
         }
