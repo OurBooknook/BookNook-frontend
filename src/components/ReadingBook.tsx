@@ -1,12 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
 import todayStr from '../utils/getTodayStr'
+import { ReadingInfoType } from './AddBookModal'
 
-export default function ReadingBook() {
+export default function ReadingBook({
+    readingInfo,
+    setReadingInfo,
+}: {
+    readingInfo: ReadingInfoType
+    setReadingInfo: React.Dispatch<React.SetStateAction<ReadingInfoType>>
+}) {
     const today = todayStr()
-    const [startDate, setStartDate] = useState<string>('')
     const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStartDate(e.target.value)
-        console.log(today)
+        setReadingInfo((prev) => ({ ...prev, startDate: e.target.value }))
+    }
+    const handleChangePages = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { value } = e.target
+        const pageNumber = value.trim() === '' ? null : Number(value)
+
+        if (Number.isNaN(pageNumber)) {
+            console.log('숫자가 아님')
+        } else {
+            setReadingInfo((prev) => ({ ...prev, page: pageNumber }))
+        }
     }
     return (
         <>
@@ -19,7 +34,7 @@ export default function ReadingBook() {
                             type="date"
                             name="startDate"
                             max={today}
-                            value={startDate}
+                            value={readingInfo.startDate ?? ''}
                             className="font-bold"
                             onChange={(e) => handleChangeStartDate(e)}
                         />
@@ -35,8 +50,10 @@ export default function ReadingBook() {
                             <input
                                 type="number"
                                 name="amountReading"
+                                value={readingInfo.page ?? ''}
                                 min="0"
                                 className="font-bold text-end"
+                                onChange={(e) => handleChangePages(e)}
                             />
                             <span>페이지</span>
                         </div>

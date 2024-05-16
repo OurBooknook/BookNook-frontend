@@ -72,3 +72,42 @@ export const deleteLibrary = async (isbn: string) => {
     // if (response.data.success) return true
     // return false
 }
+
+export const postLibrary = async ({
+    isbn,
+    status,
+    startDate,
+    finishDate,
+    readingPages,
+    rate,
+    expectation,
+}: {
+    isbn: string
+    status: Status
+    startDate: string | null
+    finishDate: string | null
+    readingPages: number | null
+    rate: number | null
+    expectation: string | null
+}) => {
+    console.log(
+        `${isbn} ${status} ${startDate} ${finishDate} ${readingPages} ${rate} ${expectation}`
+    )
+
+    const response = await axios.post(
+        `${process.env.REACT_APP_API}/api/library`,
+        {
+            params: {
+                isbn,
+                status: status.toUpperCase(),
+                startDate,
+                finishDate,
+                readingPages,
+                rate,
+                expactation: expectation,
+            },
+        }
+    )
+
+    return response
+}
