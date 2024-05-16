@@ -1,38 +1,57 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
+import { ReadInfoType } from './AddBookModal'
 
-export default function ReadBook() {
+export default function ReadBook({
+    readInfo,
+    setReadInfo,
+}: {
+    readInfo: ReadInfoType
+    setReadInfo: React.Dispatch<React.SetStateAction<ReadInfoType>>
+}) {
     // FIXME 효율적이지 않은 코드 같음. 하드코딩 아닌 방식으로 구현
-    const [starScore, setStarScore] = useState<number[]>([1, 1, 1, 0, 0])
-    const [startDate, setStartDate] = useState<string>('')
-    const [endDate, setEndDate] = useState<string>('')
+    const [starScore, setStarScore] = useState<number>()
+    const [starArr, setStarArr] = useState<number[]>([1, 1, 1, 0, 0])
     const handleClickStarScore = (value: number) => {
         switch (value) {
             case 0:
-                setStarScore([1, 0, 0, 0, 0])
+                setStarArr([1, 0, 0, 0, 0])
                 break
             case 1:
-                setStarScore([1, 1, 0, 0, 0])
+                setStarArr([1, 1, 0, 0, 0])
                 break
             case 2:
-                setStarScore([1, 1, 1, 0, 0])
+                setStarArr([1, 1, 1, 0, 0])
                 break
             case 3:
-                setStarScore([1, 1, 1, 1, 0])
+                setStarArr([1, 1, 1, 1, 0])
                 break
             case 4:
-                setStarScore([1, 1, 1, 1, 1])
+                setStarArr([1, 1, 1, 1, 1])
                 break
             default:
-                setStarScore([1, 1, 1, 1, 1])
+                setStarArr([1, 1, 1, 1, 1])
         }
     }
 
+    useEffect(() => {
+        let count = 0
+        starArr.forEach((num) => {
+            count += num === 1 ? 1 : 0
+        })
+
+        console.log(count)
+        console.log(starScore)
+
+        setStarScore(count)
+        setReadInfo((prevValue) => ({ ...prevValue, starScore: count }))
+    }, [starArr])
+
     const handleChangeStartDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setStartDate(e.target.value)
+        setReadInfo((prev) => ({ ...prev, startDate: e.target.value }))
     }
     const handleChangeEndDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEndDate(e.target.value)
+        setReadInfo((prev) => ({ ...prev, endDate: e.target.value }))
     }
 
     return (
@@ -45,8 +64,8 @@ export default function ReadBook() {
                         <input
                             type="date"
                             name="startDate"
-                            max={endDate}
-                            value={startDate}
+                            max={readInfo.endDate ?? undefined}
+                            value={readInfo.startDate ?? undefined}
                             className="font-bold"
                             onChange={(e) => handleChangeStartDate(e)}
                         />
@@ -56,8 +75,8 @@ export default function ReadBook() {
                         <input
                             type="date"
                             name="endDate"
-                            min={startDate}
-                            value={endDate}
+                            min={readInfo.startDate ?? undefined}
+                            value={readInfo.endDate ?? undefined}
                             className="font-bold"
                             onChange={(e) => handleChangeEndDate(e)}
                         />
@@ -68,7 +87,7 @@ export default function ReadBook() {
                 <span className="text-gray">평점</span>
                 <div className="flex gap-4 text-3xl text-[#FFE55B]">
                     {/* eslint-disable react/no-array-index-key */}
-                    {starScore.map((star, index) => (
+                    {starArr.map((star, index) => (
                         <button
                             type="button"
                             key={index}

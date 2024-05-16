@@ -20,11 +20,16 @@ export default function BookDetail() {
                 setSearchDocument(result.documents[0])
             )
         }
-    })
+    }, [])
 
     return (
         <>
-            {isOpenModal && <AddBookModal setIsOpenModal={setIsOpenModal} />}
+            {isOpenModal && (
+                <AddBookModal
+                    setIsOpenModal={setIsOpenModal}
+                    isbn={isbn ?? ''}
+                />
+            )}
             <Header />
             <Wrapper>
                 <div className="flex gap-8">

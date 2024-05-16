@@ -72,3 +72,45 @@ export const deleteLibrary = async (isbn: string) => {
     // if (response.data.success) return true
     // return false
 }
+
+export const postLibrary = async ({
+    isbn,
+    status,
+    startDate,
+    finishDate,
+    readingPages,
+    rate,
+    expectation,
+}: {
+    isbn: string
+    status: Status
+    startDate: string | null
+    finishDate: string | null
+    readingPages: number | null
+    rate: number | null
+    expectation: string | null
+}) => {
+    console.log(
+        `${isbn} ${status} ${startDate} ${finishDate} ${readingPages} ${rate} ${expectation}`
+    )
+
+    if (isbn === null || isbn.trim().length === 0) {
+        console.log('isbn 없음!!!')
+
+        return null
+    }
+    const response = await axios.post(
+        `${process.env.REACT_APP_API}/api/library`,
+        {
+            isbn,
+            status: status.toUpperCase(),
+            startDate,
+            finishDate,
+            readingPages,
+            rate,
+            expactation: expectation,
+        }
+    )
+
+    return response
+}
