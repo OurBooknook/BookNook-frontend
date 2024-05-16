@@ -94,18 +94,21 @@ export const postLibrary = async ({
         `${isbn} ${status} ${startDate} ${finishDate} ${readingPages} ${rate} ${expectation}`
     )
 
+    if (isbn === null || isbn.trim().length === 0) {
+        console.log('isbn 없음!!!')
+
+        return null
+    }
     const response = await axios.post(
         `${process.env.REACT_APP_API}/api/library`,
         {
-            params: {
-                isbn,
-                status: status.toUpperCase(),
-                startDate,
-                finishDate,
-                readingPages,
-                rate,
-                expactation: expectation,
-            },
+            isbn,
+            status: status.toUpperCase(),
+            startDate,
+            finishDate,
+            readingPages,
+            rate,
+            expactation: expectation,
         }
     )
 

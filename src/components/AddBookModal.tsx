@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FcReading, FcOk, FcLike } from 'react-icons/fc'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ReadingBook from './ReadingBook'
@@ -68,10 +68,6 @@ export default function AddBookModal({
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
     isbn: string
 }) {
-    useEffect(() => {
-        console.log(isbn)
-    }, [])
-
     const [currentType, setCurrentType] = useState<Status>('read')
     const [readInfo, setReadInfo] = useState<ReadInfoType>({
         startDate: todayStr(),
@@ -122,6 +118,11 @@ export default function AddBookModal({
     }
 
     const handleAddLibrary = () => {
+        if (isbn === '') {
+            console.log('isbn 없음')
+            return
+        }
+
         switch (currentType) {
             case 'read':
                 if (
