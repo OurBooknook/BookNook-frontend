@@ -8,7 +8,7 @@ import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
 import SearchItem from '../components/SearchItem'
 import ReadRecordInfo from '../components/ReadRecordInfo'
-// import Record from '../components/Record'
+import Record from '../components/Record'
 import ReadingRecordInfo from '../components/ReadingRecordInfo'
 import WishRecordInfo from '../components/WishRecordInfo'
 import { statusKo } from '../types/bookType'
@@ -138,9 +138,9 @@ export default function LibraryDetail() {
                         개의 기록이 있습니다.
                     </p>
                     <div>
-                        {/* {libraryDetailData?.recordList.map((record) => (
+                        {recordData?.recordList?.map((record) => (
                             <Record value={record} key={record.recordId} />
-                        ))} */}
+                        ))}
                     </div>
                     <Pagination
                         count={recordData?.totalPages}
