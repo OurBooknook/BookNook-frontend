@@ -36,7 +36,6 @@ export const getLibraryDetail = async (
             finishDate: string | null
             page: number | null
             expectation: string | null
-            recordList: RecordType[]
         }>
     >(`${process.env.REACT_APP_API}/api/library`, {
         params: {
@@ -53,7 +52,6 @@ export const getLibraryDetail = async (
         endDate: responseData.finishDate,
         page: responseData.page,
         expectation: responseData.expectation,
-        recordList: responseData.recordList,
     }
 
     return libraryDetail

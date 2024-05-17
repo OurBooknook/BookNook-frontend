@@ -19,7 +19,6 @@ export interface LibraryDetailType {
     endDate: string | null
     page: number | null
     expectation: string | null
-    recordList: RecordType[]
 }
 
 // 기록 데이터 타입
@@ -29,4 +28,6 @@ export interface RecordType {
     tag: Tag
     date: string
     content: string
+    createdAt: string
+    updatedAt: string
 }
