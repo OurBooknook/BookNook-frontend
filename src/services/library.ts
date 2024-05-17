@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Status } from '../types/bookType'
 import responseType from '../types/responseType'
-import { LibraryDetailType, RecordType } from '../types/libraryType'
+import { LibraryDetailType, RecordListType } from '../types/libraryType'
 
 export interface LibraryType {
     totalPages: number
@@ -14,7 +14,7 @@ export const getLibrary = async (
     page: number
 ): Promise<LibraryType> => {
     const response = await axios.get<responseType<LibraryType>>(
-        `${process.env.REACT_APP_API}/api/library/${status}`,
+        `${process.env.REACT_APP_API}/api/library/${status.toLowerCase()}`,
         {
             params: {
                 pageNumber: page,
@@ -36,7 +36,6 @@ export const getLibraryDetail = async (
             finishDate: string | null
             page: number | null
             expectation: string | null
-            recordList: RecordType[]
         }>
     >(`${process.env.REACT_APP_API}/api/library`, {
         params: {
@@ -53,10 +52,29 @@ export const getLibraryDetail = async (
         endDate: responseData.finishDate,
         page: responseData.page,
         expectation: responseData.expectation,
-        recordList: responseData.recordList,
     }
 
     return libraryDetail
+}
+
+export const getRecordList = async ({
+    isbn,
+    pageNumber,
+}: {
+    isbn: string
+    pageNumber: number
+}) => {
+    const response = await axios.get<responseType<RecordListType>>(
+        `${process.env.REACT_APP_API}/api/record-list`,
+        {
+            params: {
+                isbn,
+                pageNumber,
+            },
+        }
+    )
+
+    return response.data.results
 }
 
 export const deleteLibrary = async (isbn: string) => {

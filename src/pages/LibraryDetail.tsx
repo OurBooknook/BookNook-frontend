@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Chip } from '@mui/material'
+import { Chip, Pagination } from '@mui/material'
 import { redirect, useParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
@@ -14,12 +14,17 @@ import WishRecordInfo from '../components/WishRecordInfo'
 import { statusKo } from '../types/bookType'
 import { searchDocumentType } from '../types/searchResultType'
 import getSearchBook from '../services/searchBook'
-import { deleteLibrary, getLibraryDetail } from '../services/library'
-import { LibraryDetailType } from '../types/libraryType'
+import {
+    deleteLibrary,
+    getLibraryDetail,
+    getRecordList,
+} from '../services/library'
+import { LibraryDetailType, RecordListType } from '../types/libraryType'
 
 export default function LibraryDetail() {
     const { isbn } = useParams()
     const [searchDocument, setSearchDocument] = useState<searchDocumentType>()
+    const [recordPage, setRecordPage] = useState<number>(1)
 
     useEffect(() => {
         if (isbn !== undefined) {
@@ -35,6 +40,17 @@ export default function LibraryDetail() {
             queryFn: () => getLibraryDetail(isbn ?? ''),
         }
     )
+
+    const { data: recordData } = useQuery<RecordListType, AxiosError>({
+        queryKey: ['records'],
+        queryFn: () =>
+            getRecordList({ isbn: isbn || '', pageNumber: recordPage }),
+    })
+
+    useEffect(() => {
+        setRecordPage(recordData?.currentPage ?? 1)
+        console.log(libraryDetailData?.status)
+    }, [recordData])
 
     const queryClient = useQueryClient()
     const deleteLibraryMutation = useMutation({
@@ -62,8 +78,8 @@ export default function LibraryDetail() {
                 <div className="flex justify-between mb-6">
                     <Chip
                         label={
-                            libraryDetailData !== undefined
-                                ? statusKo[libraryDetailData?.status]
+                            libraryDetailData?.status !== undefined
+                                ? statusKo[libraryDetailData.status]
                                 : '없음'
                         }
                         color="success"
@@ -94,20 +110,20 @@ export default function LibraryDetail() {
                     </ul>
                 </div>
                 {searchDocument && <SearchItem searchResult={searchDocument} />}
-                {libraryDetailData?.status === 'read' && (
+                {libraryDetailData?.status.toUpperCase() === 'READ' && (
                     <ReadRecordInfo
                         rate={libraryDetailData.rate ?? 0}
                         startDate={libraryDetailData.startDate ?? '없음'}
                         endDate={libraryDetailData.endDate ?? '없음'}
                     />
                 )}
-                {libraryDetailData?.status === 'reading' && (
+                {libraryDetailData?.status.toUpperCase() === 'READING' && (
                     <ReadingRecordInfo
                         page={libraryDetailData.page ?? 0}
                         startDate={libraryDetailData.startDate ?? '없음'}
                     />
                 )}
-                {libraryDetailData?.status === 'wish' && (
+                {libraryDetailData?.status.toUpperCase() === 'WISH' && (
                     <WishRecordInfo
                         expectation={libraryDetailData.expectation ?? '없음'}
                     />
@@ -117,15 +133,22 @@ export default function LibraryDetail() {
                     <p className="text-lg">
                         총{' '}
                         <span className="font-bold text-primary">
-                            {libraryDetailData?.recordList.length ?? 0}
+                            {recordData?.recordList?.length ?? 0}
                         </span>
                         개의 기록이 있습니다.
                     </p>
                     <div>
-                        {libraryDetailData?.recordList.map((record) => (
+                        {recordData?.recordList?.map((record) => (
                             <Record value={record} key={record.recordId} />
                         ))}
                     </div>
+                    <Pagination
+                        count={recordData?.totalPages}
+                        page={recordPage}
+                        onChange={(e, value) => setRecordPage(value)}
+                        size="large"
+                        className="w-fit mx-auto"
+                    />
                 </div>
             </Wrapper>
             <Footer />

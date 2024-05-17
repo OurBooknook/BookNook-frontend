@@ -19,7 +19,7 @@ interface LibraryListType {
 
 export default function Library() {
     const [library, setLibrary] = useState<LibraryListType[]>([])
-    const [status, setStatus] = useState<Status>('read')
+    const [status, setStatus] = useState<Status>('READ')
     const [page, setPage] = useState<number>(1)
     const { data: isbns } = useQuery<LibraryType, Error>({
         queryKey: ['library'],

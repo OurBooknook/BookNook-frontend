@@ -13,7 +13,7 @@ export default function ReadRecordInfo({
     const printStarScore = (cnt: number) => {
         const arr = []
         for (let i = 0; i < cnt; i += 1) {
-            arr.push(<FaStar />)
+            arr.push(<FaStar key={i} />)
         }
 
         return arr

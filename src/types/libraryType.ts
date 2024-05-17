@@ -19,14 +19,20 @@ export interface LibraryDetailType {
     endDate: string | null
     page: number | null
     expectation: string | null
-    recordList: RecordType[]
 }
 
 // 기록 데이터 타입
+export interface RecordListType {
+    totalPages: number
+    currentPage: number
+    recordList: RecordType[]
+}
 export interface RecordType {
     recordId: number
     page: number | null
     tag: Tag
     date: string
     content: string
+    createdAt: string
+    updatedAt: string
 }
