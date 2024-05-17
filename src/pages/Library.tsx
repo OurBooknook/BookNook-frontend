@@ -22,7 +22,7 @@ export default function Library() {
     const [status, setStatus] = useState<Status>('READ')
     const [page, setPage] = useState<number>(1)
     const { data: isbns } = useQuery<LibraryType, Error>({
-        queryKey: ['library'],
+        queryKey: ['library', status],
         queryFn: () => getLibrary(status, page),
         staleTime: 1000 * 60,
     })
@@ -51,10 +51,14 @@ export default function Library() {
         return Object.values(statusEn).includes(value as Status)
     }
 
-    const handleClickTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const tabId = e.currentTarget.id
-        if (isStatus(tabId)) {
-            setStatus(tabId)
+    const handleClickTab = (
+        e: React.MouseEvent<HTMLButtonElement>,
+        tabType: Status
+    ) => {
+        if (isStatus(tabType)) {
+            console.log('탭 맞아요~', tabType)
+
+            setStatus(tabType)
         }
     }
     return (
@@ -66,8 +70,7 @@ export default function Library() {
                         <button
                             type="button"
                             className="btn-list-tab"
-                            id="read"
-                            onClick={(e) => handleClickTab(e)}
+                            onClick={(e) => handleClickTab(e, 'READ')}
                         >
                             읽은 책
                         </button>
@@ -76,8 +79,7 @@ export default function Library() {
                         <button
                             type="button"
                             className="btn-list-tab"
-                            id="reading"
-                            onClick={(e) => handleClickTab(e)}
+                            onClick={(e) => handleClickTab(e, 'READING')}
                         >
                             읽고 있는 책
                         </button>
@@ -86,8 +88,7 @@ export default function Library() {
                         <button
                             type="button"
                             className="btn-list-tab"
-                            id="wish"
-                            onClick={(e) => handleClickTab(e)}
+                            onClick={(e) => handleClickTab(e, 'WISH')}
                         >
                             읽고 싶은 책
                         </button>
