@@ -22,6 +22,11 @@ export interface LibraryDetailType {
 }
 
 // 기록 데이터 타입
+export interface RecordListType {
+    totalPages: number
+    currentPage: number
+    recordList: RecordType[]
+}
 export interface RecordType {
     recordId: number
     page: number | null

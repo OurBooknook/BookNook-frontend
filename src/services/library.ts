@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Status } from '../types/bookType'
 import responseType from '../types/responseType'
-import { LibraryDetailType, RecordType } from '../types/libraryType'
+import { LibraryDetailType, RecordListType } from '../types/libraryType'
 
 export interface LibraryType {
     totalPages: number
@@ -55,6 +55,26 @@ export const getLibraryDetail = async (
     }
 
     return libraryDetail
+}
+
+export const getRecordList = async ({
+    isbn,
+    pageNumber,
+}: {
+    isbn: string
+    pageNumber: number
+}) => {
+    const response = await axios.get<responseType<RecordListType>>(
+        `${process.env.REACT_APP_API}/api/record-list`,
+        {
+            params: {
+                isbn,
+                pageNumber,
+            },
+        }
+    )
+
+    return response.data.results
 }
 
 export const deleteLibrary = async (isbn: string) => {
