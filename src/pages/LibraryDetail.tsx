@@ -49,6 +49,7 @@ export default function LibraryDetail() {
 
     useEffect(() => {
         setRecordPage(recordData?.currentPage ?? 1)
+        console.log(libraryDetailData?.status)
     }, [recordData])
 
     const queryClient = useQueryClient()
@@ -77,7 +78,7 @@ export default function LibraryDetail() {
                 <div className="flex justify-between mb-6">
                     <Chip
                         label={
-                            libraryDetailData !== undefined
+                            libraryDetailData?.status !== undefined
                                 ? statusKo[libraryDetailData.status]
                                 : '없음'
                         }

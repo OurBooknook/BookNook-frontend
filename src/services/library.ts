@@ -14,7 +14,7 @@ export const getLibrary = async (
     page: number
 ): Promise<LibraryType> => {
     const response = await axios.get<responseType<LibraryType>>(
-        `${process.env.REACT_APP_API}/api/library/${status}`,
+        `${process.env.REACT_APP_API}/api/library/${status.toLowerCase()}`,
         {
             params: {
                 pageNumber: page,

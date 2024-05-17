@@ -19,21 +19,21 @@ const bookTypes: bookType[] = [
     {
         id: 1,
         icon: <FcOk />,
-        type: 'read',
+        type: 'READ',
         title: '읽은 책',
         description: '다 읽었어요!',
     },
     {
         id: 2,
         icon: <FcReading />,
-        type: 'reading',
+        type: 'READING',
         title: '읽고 있는 책',
         description: '읽는 중이에요',
     },
     {
         id: 3,
         icon: <FcLike />,
-        type: 'wish',
+        type: 'WISH',
         title: '읽고 싶은 책',
         description: '앞으로 읽을 예정!',
     },
@@ -68,7 +68,7 @@ export default function AddBookModal({
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
     isbn: string
 }) {
-    const [currentType, setCurrentType] = useState<Status>('read')
+    const [currentType, setCurrentType] = useState<Status>('READ')
     const [readInfo, setReadInfo] = useState<ReadInfoType>({
         startDate: todayStr(),
         endDate: todayStr(),
@@ -124,7 +124,7 @@ export default function AddBookModal({
         }
 
         switch (currentType) {
-            case 'read':
+            case 'READ':
                 if (
                     hasNullorEmpty(
                         readInfo.startDate,
@@ -147,7 +147,7 @@ export default function AddBookModal({
                     expectation: null,
                 })
                 break
-            case 'reading':
+            case 'READING':
                 if (hasNullorEmpty(readingInfo.startDate, readingInfo.page)) {
                     alert('읽고 있는 책 정보를 모두 입력해주세요!')
                     break
@@ -161,7 +161,7 @@ export default function AddBookModal({
                     expectation: null,
                 })
                 break
-            case 'wish':
+            case 'WISH':
                 if (hasNullorEmpty(wishInfo.expectation)) {
                     alert('읽고 싶은 책 정보를 모두 입력해주세요!')
                     break
@@ -207,9 +207,9 @@ export default function AddBookModal({
                     ))}
                 </div>
                 {/* eslint-disable no-nested-ternary */}
-                {currentType === 'read' ? (
+                {currentType === 'READ' ? (
                     <ReadBook readInfo={readInfo} setReadInfo={setReadInfo} />
-                ) : currentType === 'reading' ? (
+                ) : currentType === 'READING' ? (
                     <ReadingBook
                         readingInfo={readingInfo}
                         setReadingInfo={setReadingInfo}
