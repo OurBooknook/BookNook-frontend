@@ -8,7 +8,7 @@ import Footer from '../layouts/Footer'
 import Wrapper from '../layouts/Wrapper'
 import SearchItem from '../components/SearchItem'
 import ReadRecordInfo from '../components/ReadRecordInfo'
-import Record from '../components/Record'
+// import Record from '../components/Record'
 import ReadingRecordInfo from '../components/ReadingRecordInfo'
 import WishRecordInfo from '../components/WishRecordInfo'
 import { statusKo } from '../types/bookType'
@@ -63,7 +63,7 @@ export default function LibraryDetail() {
                     <Chip
                         label={
                             libraryDetailData !== undefined
-                                ? statusKo[libraryDetailData?.status]
+                                ? statusKo[libraryDetailData.status]
                                 : '없음'
                         }
                         color="success"
@@ -94,20 +94,20 @@ export default function LibraryDetail() {
                     </ul>
                 </div>
                 {searchDocument && <SearchItem searchResult={searchDocument} />}
-                {libraryDetailData?.status === 'read' && (
+                {libraryDetailData?.status.toUpperCase() === 'READ' && (
                     <ReadRecordInfo
                         rate={libraryDetailData.rate ?? 0}
                         startDate={libraryDetailData.startDate ?? '없음'}
                         endDate={libraryDetailData.endDate ?? '없음'}
                     />
                 )}
-                {libraryDetailData?.status === 'reading' && (
+                {libraryDetailData?.status.toUpperCase() === 'READING' && (
                     <ReadingRecordInfo
                         page={libraryDetailData.page ?? 0}
                         startDate={libraryDetailData.startDate ?? '없음'}
                     />
                 )}
-                {libraryDetailData?.status === 'wish' && (
+                {libraryDetailData?.status.toUpperCase() === 'WISH' && (
                     <WishRecordInfo
                         expectation={libraryDetailData.expectation ?? '없음'}
                     />
@@ -122,9 +122,9 @@ export default function LibraryDetail() {
                         개의 기록이 있습니다.
                     </p>
                     <div>
-                        {libraryDetailData?.recordList.map((record) => (
+                        {/* {libraryDetailData?.recordList.map((record) => (
                             <Record value={record} key={record.recordId} />
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </Wrapper>
