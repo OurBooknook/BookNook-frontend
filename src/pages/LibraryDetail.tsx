@@ -20,11 +20,13 @@ import {
     getRecordList,
 } from '../services/library'
 import { LibraryDetailType, RecordListType } from '../types/libraryType'
+import RecordingModal from '../components/RecordingModal'
 
 export default function LibraryDetail() {
     const { isbn } = useParams()
     const [searchDocument, setSearchDocument] = useState<searchDocumentType>()
     const [recordPage, setRecordPage] = useState<number>(1)
+    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
 
     useEffect(() => {
         if (isbn !== undefined) {
@@ -73,6 +75,7 @@ export default function LibraryDetail() {
 
     return (
         <div>
+            {isOpenModal && <RecordingModal setIsOpenModal={setIsOpenModal} />}
             <Header />
             <Wrapper>
                 <div className="flex justify-between mb-6">
@@ -130,13 +133,21 @@ export default function LibraryDetail() {
                 )}
 
                 <div className="mt-20">
-                    <p className="text-lg">
-                        총{' '}
-                        <span className="font-bold text-primary">
-                            {recordData?.recordList?.length ?? 0}
-                        </span>
-                        개의 기록이 있습니다.
-                    </p>
+                    <div className="flex justify-between">
+                        <p className="text-lg">
+                            총{' '}
+                            <span className="font-bold text-primary">
+                                {recordData?.recordList?.length ?? 0}
+                            </span>
+                            개의 기록이 있습니다.
+                        </p>
+                        <button
+                            type="button"
+                            onClick={() => setIsOpenModal(true)}
+                        >
+                            기록 추가하기
+                        </button>
+                    </div>
                     <div>
                         {recordData?.recordList?.map((record) => (
                             <Record value={record} key={record.recordId} />

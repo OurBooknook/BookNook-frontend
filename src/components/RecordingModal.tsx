@@ -1,7 +1,15 @@
 import { FormControl, MenuItem, Select, TextField } from '@mui/material'
 import React from 'react'
 
-export default function RecordingModal() {
+export default function RecordingModal({
+    setIsOpenModal,
+}: {
+    setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
+}) {
+    const handleCloseModal = () => {
+        setIsOpenModal((prev) => !prev)
+    }
+
     return (
         <div className="absolute w-full h-full flex justify-center items-center bg-black/60 z-10">
             <div className="relative flex flex-col gap-4 p-8 w-[35rem] h-[36rem] bg-primaryVariant rounded-lg">
@@ -39,6 +47,7 @@ export default function RecordingModal() {
                     <button
                         type="button"
                         className="text-lg font-bold px-4 py-2 bg-lightGray text-black rounded-md"
+                        onClick={handleCloseModal}
                     >
                         닫기
                     </button>
