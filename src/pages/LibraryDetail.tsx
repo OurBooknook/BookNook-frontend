@@ -143,6 +143,7 @@ export default function LibraryDetail() {
                         </p>
                         <button
                             type="button"
+                            className="underline"
                             onClick={() => setIsOpenModal(true)}
                         >
                             기록 추가하기
