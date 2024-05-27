@@ -24,6 +24,17 @@ export const getLibrary = async (
     return response.data.results
 }
 
+export const getIsInTheLibrary = async (isbn: string) => {
+    const response = await axios.get<responseType<LibraryDetailType>>(
+        `${process.env.REACT_APP_API}/api/library`,
+        {
+            params: isbn,
+        }
+    )
+
+    return response.data
+}
+
 export const getLibraryDetail = async (
     isbn: string
 ): Promise<LibraryDetailType> => {

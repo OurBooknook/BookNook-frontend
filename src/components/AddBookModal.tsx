@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FcReading, FcOk, FcLike } from 'react-icons/fc'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import ReadingBook from './ReadingBook'
 import WishBook from './WishBook'
 import ReadBook from './ReadBook'
-import { postLibrary } from '../services/library'
+import { getIsInTheLibrary, postLibrary } from '../services/library'
 import { Status } from '../types/bookType'
 import todayStr from '../utils/getTodayStr'
 
@@ -82,6 +82,32 @@ export default function AddBookModal({
         expectation: '',
     })
 
+    useEffect(() => {
+        // isbn에 해당하는 책이 이미 담긴 책인지 확인(/api/library?isbn=1234)
+        const { data: isInTheLibraryData } = useQuery({
+            queryKey: ['isInTheLibrary'],
+            queryFn: () => getIsInTheLibrary(isbn),
+        })
+        // 이미 담은 책이라면 담기 요청은 put & 데이터를 setReadInfo, setReadingInfo, setWishInfo
+        if (isInTheLibraryData?.success) {
+            setReadInfo({
+                startDate: isInTheLibraryData.results.startDate,
+                endDate: isInTheLibraryData.results.endDate,
+                starScore: isInTheLibraryData.results.rate,
+            })
+            setReadingInfo({
+                startDate: isInTheLibraryData.results.startDate,
+                page: isInTheLibraryData.results.page,
+            })
+            setWishInfo({
+                expectation: isInTheLibraryData.results.expectation,
+            })
+        }
+        // 아니라면 담기 요청은 post
+        else {
+        }
+    }, [])
+
     const handleClickBookType = (type: Status) => {
         console.log(type)
         setCurrentType(type)
@@ -89,6 +115,7 @@ export default function AddBookModal({
 
     const queryClient = useQueryClient()
     const addLibraryMutation = useMutation({
+        // 담기 요청이 Put인지 post인지 적용
         mutationFn: (newBook: Book) =>
             postLibrary({
                 isbn,
