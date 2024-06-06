@@ -3,12 +3,12 @@
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FcReading, FcOk, FcLike } from 'react-icons/fc'
-import ReadingBook from './ReadingBook'
-import WishBook from './WishBook'
-import ReadBook from './ReadBook'
-import { postLibrary } from '../services/library'
-import { Status } from '../types/bookType'
-import todayStr from '../utils/getTodayStr'
+import ReadingBook from '../../../components/ReadingBook'
+import WishBook from '../../../components/WishBook'
+import ReadBook from '../../../components/ReadBook'
+import { postLibrary } from '../../../services/library'
+import { Status } from '../../../types/bookType'
+import todayStr from '../../../utils/getTodayStr'
 
 interface bookType {
     id: number

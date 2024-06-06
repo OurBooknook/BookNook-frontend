@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { FaRegStar, FaStar } from 'react-icons/fa'
-import { ReadInfoType } from './AddBookModal'
+import { ReadInfoType } from '../pages/BookDetail/components/AddBookModal'
 
 export default function ReadBook({
     readInfo,

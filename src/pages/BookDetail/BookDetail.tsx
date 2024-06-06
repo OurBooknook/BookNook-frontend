@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { FaBookmark } from 'react-icons/fa'
 import { useParams } from 'react-router-dom'
-import Wrapper from '../layouts/Wrapper'
-import AddBookModal from '../components/AddBookModal'
-import Header from '../layouts/Header'
-import Footer from '../layouts/Footer'
-import getSearchBook from '../services/searchBook'
-import { searchDocumentType } from '../types/searchResultType'
-import getFormattedDate from '../utils/getFormattedDate'
+import Wrapper from '../../components/Wrapper'
+import AddBookModal from './components/AddBookModal'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import getSearchBook from '../../services/searchBook'
+import { searchDocumentType } from '../../types/searchResultType'
+import getFormattedDate from '../../utils/getFormattedDate'
 
 export default function BookDetail() {
     const { isbn } = useParams()
