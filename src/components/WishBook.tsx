@@ -1,10 +1,13 @@
 import React from 'react'
 import { WishInfoType } from './AddBookModal'
 
-type Props = {
+export default function WishBook({
+    wishInfo,
+    setWishInfo,
+}: {
+    wishInfo: WishInfoType
     setWishInfo: React.Dispatch<React.SetStateAction<WishInfoType>>
-}
-export default function WishBook({ setWishInfo }: Props) {
+}) {
     const handleChageExpectation = (
         e: React.ChangeEvent<HTMLTextAreaElement>
     ) => {
@@ -17,6 +20,7 @@ export default function WishBook({ setWishInfo }: Props) {
                 className="resize-none p-4 border-gray border-[0.5px] rounded-md"
                 rows={7}
                 placeholder="책을 알게 된 경로, 기대되는 점 등을 기록해보세요"
+                value={wishInfo.expectation ?? ''}
                 onChange={handleChageExpectation}
             />
         </div>

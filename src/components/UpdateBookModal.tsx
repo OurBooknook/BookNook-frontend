@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { FcReading, FcOk, FcLike } from 'react-icons/fc'
 import ReadingBook from './ReadingBook'
 import WishBook from './WishBook'
 import ReadBook from './ReadBook'
-import { postLibrary } from '../services/library'
+import { getLibraryDetail, putLibrary } from '../services/library'
 import { Status } from '../types/bookType'
 import todayStr from '../utils/getTodayStr'
 
@@ -63,26 +63,47 @@ interface Book {
     expectation: string | null
 }
 
-export default function AddBookModal({
+export default function UpdateBookModal({
     setIsOpenModal,
     isbn,
 }: {
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
     isbn: string
 }) {
+    const { data: libraryDetailData, isLoading } = useQuery({
+        queryKey: ['libraryDetail', isbn],
+        queryFn: () => getLibraryDetail(isbn),
+    })
     const [currentType, setCurrentType] = useState<Status>('READ')
     const [readInfo, setReadInfo] = useState<ReadInfoType>({
-        startDate: todayStr(),
-        endDate: todayStr(),
-        starScore: 3,
+        startDate: libraryDetailData?.startDate ?? todayStr(),
+        endDate: libraryDetailData?.endDate ?? todayStr(),
+        starScore: libraryDetailData?.rate ?? 3,
     })
     const [readingInfo, setReadingInfo] = useState<ReadingInfoType>({
-        startDate: todayStr(),
-        page: 0,
+        startDate: libraryDetailData?.startDate ?? todayStr(),
+        page: libraryDetailData?.page ?? 0,
     })
     const [wishInfo, setWishInfo] = useState<WishInfoType>({
-        expectation: '',
+        expectation: libraryDetailData?.expectation ?? '',
     })
+
+    useEffect(() => {
+        if (libraryDetailData) {
+            setReadInfo({
+                startDate: libraryDetailData.startDate ?? todayStr(),
+                endDate: libraryDetailData.endDate ?? todayStr(),
+                starScore: libraryDetailData.rate ?? 5,
+            })
+            setReadingInfo({
+                startDate: libraryDetailData.startDate ?? '2024-06-05',
+                page: libraryDetailData.page ?? 0,
+            })
+            setWishInfo({
+                expectation: libraryDetailData.expectation ?? '기대평',
+            })
+        }
+    }, [libraryDetailData])
 
     const handleClickBookType = (type: Status) => {
         console.log(type)
@@ -90,10 +111,10 @@ export default function AddBookModal({
     }
 
     const queryClient = useQueryClient()
-    const addLibraryMutation = useMutation({
+    const updateLibraryMutation = useMutation({
         // 담기 요청이 Put인지 post인지 적용
         mutationFn: (newBook: Book) =>
-            postLibrary({
+            putLibrary({
                 isbn,
                 status: newBook.status,
                 startDate: newBook.startDate,
@@ -104,7 +125,7 @@ export default function AddBookModal({
             }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['library'] })
-            console.log(`${isbn} 책 담기 성공`)
+            console.log(`${isbn} 책 수정 성공`)
         },
         onError: (error) => {
             console.log(error)
@@ -120,7 +141,7 @@ export default function AddBookModal({
         return hasNull || hasEmpty
     }
 
-    const handleAddLibrary = () => {
+    const handleUpdateLibrary = () => {
         if (isbn === '') {
             console.log('isbn 없음')
             return
@@ -172,11 +193,15 @@ export default function AddBookModal({
             default:
                 return
         }
-        addLibraryMutation.mutate(newBook)
+        updateLibraryMutation.mutate(newBook)
     }
 
     const handleCloseModal = () => {
         setIsOpenModal((prev) => !prev)
+    }
+
+    if (isLoading) {
+        return <div>Loading...</div>
     }
 
     return (
@@ -223,7 +248,7 @@ export default function AddBookModal({
                     <button
                         type="button"
                         className="text-lg font-bold px-4 py-2 bg-primary text-white rounded-md"
-                        onClick={handleAddLibrary}
+                        onClick={handleUpdateLibrary}
                     >
                         저장
                     </button>

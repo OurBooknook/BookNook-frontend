@@ -21,12 +21,16 @@ import {
 } from '../services/library'
 import { LibraryDetailType, RecordListType } from '../types/libraryType'
 import RecordingModal from '../components/RecordingModal'
+import UpdateBookModal from '../components/UpdateBookModal'
 
 export default function LibraryDetail() {
     const { isbn } = useParams()
     const [searchDocument, setSearchDocument] = useState<searchDocumentType>()
     const [recordPage, setRecordPage] = useState<number>(1)
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [isOpenRecordingModal, setIsOpenRecordingModal] =
+        useState<boolean>(false)
+    const [isOpenUpdateBookModal, setIsOpenUpdateBookModal] =
+        useState<boolean>(false)
 
     useEffect(() => {
         if (isbn !== undefined) {
@@ -75,7 +79,15 @@ export default function LibraryDetail() {
 
     return (
         <div>
-            {isOpenModal && <RecordingModal setIsOpenModal={setIsOpenModal} />}
+            {isOpenRecordingModal && (
+                <RecordingModal setIsOpenModal={setIsOpenRecordingModal} />
+            )}
+            {isOpenUpdateBookModal && (
+                <UpdateBookModal
+                    setIsOpenModal={setIsOpenUpdateBookModal}
+                    isbn={isbn ?? ''}
+                />
+            )}
             <Header />
             <Wrapper>
                 <div className="flex justify-between mb-6">
@@ -97,6 +109,7 @@ export default function LibraryDetail() {
                             <button
                                 type="button"
                                 className="text-gray underline"
+                                onClick={() => setIsOpenUpdateBookModal(true)}
                             >
                                 수정
                             </button>
@@ -144,7 +157,7 @@ export default function LibraryDetail() {
                         <button
                             type="button"
                             className="underline"
-                            onClick={() => setIsOpenModal(true)}
+                            onClick={() => setIsOpenRecordingModal(true)}
                         >
                             기록 추가하기
                         </button>
