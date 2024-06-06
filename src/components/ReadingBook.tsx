@@ -1,6 +1,6 @@
 import React from 'react'
 import todayStr from '../utils/getTodayStr'
-import { ReadingInfoType } from './AddBookModal'
+import { ReadingInfoType } from '../pages/BookDetail/components/AddBookModal'
 
 export default function ReadingBook({
     readingInfo,

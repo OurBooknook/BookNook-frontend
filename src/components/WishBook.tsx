@@ -1,5 +1,5 @@
 import React from 'react'
-import { WishInfoType } from './AddBookModal'
+import { WishInfoType } from '../pages/BookDetail/components/AddBookModal'
 
 export default function WishBook({
     wishInfo,

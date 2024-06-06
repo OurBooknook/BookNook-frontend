@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { IoIosSearch } from 'react-icons/io'
-import Logo from '../components/Logo'
+import Logo from './Logo'
 
 export default function Header() {
     const [search, setSearch] = useState<string>('')

@@ -2,11 +2,11 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
-import LibraryDetail from './pages/LibraryDetail'
-import SearchList from './pages/SearchList'
-import BookDetail from './pages/BookDetail'
-import Library from './pages/Library'
-import LoginPage from './pages/LoginPage'
+import LibraryDetail from './pages/LibraryDetail/LibraryDetail'
+import SearchList from './pages/Search/SearchList'
+import BookDetail from './pages/BookDetail/BookDetail'
+import Library from './pages/Library/Library'
+import LoginPage from './pages/Login/LoginPage'
 
 const queryClient = new QueryClient()
 function App() {

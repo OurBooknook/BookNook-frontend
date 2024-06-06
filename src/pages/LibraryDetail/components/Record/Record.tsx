@@ -1,6 +1,6 @@
 import { Chip } from '@mui/material'
 import React from 'react'
-import getFormattedDate from '../utils/getFormattedDate'
+import getFormattedDate from '../../../../utils/getFormattedDate'
 
 interface RecordType {
     recordId: number

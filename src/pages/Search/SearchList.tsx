@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Pagination } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
-import Wrapper from '../layouts/Wrapper'
-import SearchItem from '../components/SearchItem'
-import Header from '../layouts/Header'
-import Footer from '../layouts/Footer'
-import getSearchBook, { BookData } from '../services/searchBook'
-import EmptyBookResult from '../components/EmptyBookResult'
+import Wrapper from '../../components/Wrapper'
+import SearchItem from './components/SearchItem'
+import Header from '../../components/Header'
+import Footer from '../../components/Footer'
+import getSearchBook, { BookData } from '../../services/searchBook'
+import EmptyBookResult from '../../components/EmptyBookResult'
 
 const SIZE = 10
 export default function SearchList() {
