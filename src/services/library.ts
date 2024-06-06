@@ -24,17 +24,6 @@ export const getLibrary = async (
     return response.data.results
 }
 
-export const getIsInTheLibrary = async (isbn: string) => {
-    const response = await axios.get<responseType<LibraryDetailType>>(
-        `${process.env.REACT_APP_API}/api/library`,
-        {
-            params: isbn,
-        }
-    )
-
-    return response.data
-}
-
 export const getLibraryDetail = async (
     isbn: string
 ): Promise<LibraryDetailType> => {
@@ -129,6 +118,44 @@ export const postLibrary = async ({
         return null
     }
     const response = await axios.post(
+        `${process.env.REACT_APP_API}/api/library`,
+        {
+            isbn,
+            status: status.toUpperCase(),
+            startDate,
+            finishDate,
+            readingPages,
+            rate,
+            expactation: expectation,
+        }
+    )
+
+    return response
+}
+
+export const putLibrary = async ({
+    isbn,
+    status,
+    startDate,
+    finishDate,
+    readingPages,
+    rate,
+    expectation,
+}: {
+    isbn: string
+    status: Status
+    startDate: string | null
+    finishDate: string | null
+    readingPages: number | null
+    rate: number | null
+    expectation: string | null
+}) => {
+    if (isbn === null || isbn.trim().length === 0) {
+        console.log('isbn 없음!!!')
+
+        return null
+    }
+    const response = await axios.put(
         `${process.env.REACT_APP_API}/api/library`,
         {
             isbn,
