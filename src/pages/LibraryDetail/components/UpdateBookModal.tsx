@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useNavigate } from 'react-router-dom'
 import { FcReading, FcOk, FcLike } from 'react-icons/fc'
 import ReadingBook from '../../../components/ReadingBook'
 import WishBook from '../../../components/WishBook'
@@ -111,6 +112,7 @@ export default function UpdateBookModal({
     }
 
     const queryClient = useQueryClient()
+    const navigate = useNavigate()
     const updateLibraryMutation = useMutation({
         // 담기 요청이 Put인지 post인지 적용
         mutationFn: (newBook: Book) =>
@@ -125,7 +127,9 @@ export default function UpdateBookModal({
             }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['library'] })
-            console.log(`${isbn} 책 수정 성공`)
+            alert('책 수정 성공!')
+            setIsOpenModal((prev) => !prev)
+            navigate('/library')
         },
         onError: (error) => {
             console.log(error)

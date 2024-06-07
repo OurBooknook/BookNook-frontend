@@ -104,7 +104,8 @@ export default function AddBookModal({
             }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['library'] })
-            console.log(`${isbn} 책 담기 성공`)
+            alert('책 담기 성공!')
+            setIsOpenModal((prev) => !prev)
         },
         onError: (error) => {
             console.log(error)
