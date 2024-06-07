@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Chip, Pagination } from '@mui/material'
-import { redirect, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import Header from '../../components/Header'
@@ -58,6 +58,8 @@ export default function LibraryDetail() {
         console.log(libraryDetailData?.status)
     }, [recordData])
 
+    const navigate = useNavigate()
+
     const queryClient = useQueryClient()
     const deleteLibraryMutation = useMutation({
         mutationFn: () => deleteLibrary(isbn ?? ''),
@@ -66,7 +68,10 @@ export default function LibraryDetail() {
                 queryKey: ['library'],
             })
 
-            redirect('/library')
+            alert(
+                '해당 도서가 서재에서 삭제되었습니다! 3초 후 서재로 이동합니다!'
+            )
+            setTimeout(() => navigate('/library'), 3000)
         },
         onError: (error) => {
             console.log(error)
