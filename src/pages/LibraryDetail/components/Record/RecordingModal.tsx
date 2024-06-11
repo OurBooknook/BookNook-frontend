@@ -13,6 +13,7 @@ export default function RecordingModal({
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }) {
     const [recordTag, setRecordTag] = useState<string>('quote')
+    const [page, setPage] = useState<string>('')
     const handleCloseModal = () => {
         setIsOpenModal((prev) => !prev)
     }
@@ -20,10 +21,14 @@ export default function RecordingModal({
     const handleSelectRecordTag = (e: SelectChangeEvent) => {
         setRecordTag(e.target.value as string)
     }
+    const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPage(e.target.value)
+    }
 
     const handleSaveRecord = () => {
-        //FIXME - 임시 코드
+        // FIXME - 임시 코드
         console.log(recordTag)
+        console.log(page)
     }
 
     return (
@@ -49,10 +54,10 @@ export default function RecordingModal({
                     <div className="flex gap-4 items-center">
                         <span className="w-20 text-gray">페이지 번호</span>
                         <TextField
-                            type="number"
                             variant="standard"
                             sx={{ minWidth: 200 }}
                             placeholder="몇 페이지의 내용인가요?"
+                            onChange={handleChangePage}
                         />
                     </div>
                     <div className="flex flex-col gap-2">
