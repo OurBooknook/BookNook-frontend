@@ -14,6 +14,7 @@ export default function RecordingModal({
 }) {
     const [recordTag, setRecordTag] = useState<string>('quote')
     const [page, setPage] = useState<string>('')
+    const [content, setContent] = useState<string>('')
     const handleCloseModal = () => {
         setIsOpenModal((prev) => !prev)
     }
@@ -24,11 +25,15 @@ export default function RecordingModal({
     const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPage(e.target.value)
     }
+    const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value)
+    }
 
     const handleSaveRecord = () => {
         // FIXME - 임시 코드
         console.log(recordTag)
         console.log(page)
+        console.log(content)
     }
 
     return (
@@ -65,6 +70,7 @@ export default function RecordingModal({
                         <textarea
                             placeholder="기록하고 싶은 내용을 입력하세요"
                             className="p-2 h-72 text-black bg-white rounded-md border-2 border-gray resize-none"
+                            onChange={handleChangeContent}
                         />
                     </div>
                 </div>
