@@ -1,13 +1,29 @@
-import { FormControl, MenuItem, Select, TextField } from '@mui/material'
-import React from 'react'
+import {
+    FormControl,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+} from '@mui/material'
+import React, { useState } from 'react'
 
 export default function RecordingModal({
     setIsOpenModal,
 }: {
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+    const [recordTag, setRecordTag] = useState<string>('quote')
     const handleCloseModal = () => {
         setIsOpenModal((prev) => !prev)
+    }
+
+    const handleSelectRecordTag = (e: SelectChangeEvent) => {
+        setRecordTag(e.target.value as string)
+    }
+
+    const handleSaveRecord = () => {
+        //FIXME - 임시 코드
+        console.log(recordTag)
     }
 
     return (
@@ -18,7 +34,11 @@ export default function RecordingModal({
                     <div className="flex gap-4 items-center">
                         <span className="w-20 text-gray">기록 태그</span>
                         <FormControl variant="standard" sx={{ minWidth: 200 }}>
-                            <Select label="기록 태그" defaultValue="quote">
+                            <Select
+                                label="기록 태그"
+                                defaultValue="quote"
+                                onChange={handleSelectRecordTag}
+                            >
                                 <MenuItem value="quote">인용</MenuItem>
                                 <MenuItem value="summary">줄거리</MenuItem>
                                 <MenuItem value="review">감상평</MenuItem>
@@ -54,6 +74,7 @@ export default function RecordingModal({
                     <button
                         type="button"
                         className="text-lg font-bold px-4 py-2 bg-primary text-white rounded-md"
+                        onClick={handleSaveRecord}
                     >
                         저장
                     </button>
