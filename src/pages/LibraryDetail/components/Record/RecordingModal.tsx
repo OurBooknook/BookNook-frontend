@@ -30,10 +30,15 @@ export default function RecordingModal({
     }
 
     const handleSaveRecord = () => {
+        // page 유효성 검사
+        if (Number.isNaN(Number(page))) {
+            alert('page 입력이 올바르지 않습니다!')
+            return
+        }
         // FIXME - 임시 코드
         console.log(recordTag)
-        console.log(page)
         console.log(content)
+        console.log(page)
     }
 
     return (
