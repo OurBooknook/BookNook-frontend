@@ -5,11 +5,15 @@ import {
     SelectChangeEvent,
     TextField,
 } from '@mui/material'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
+import postRecord from '../../../../services/record'
 
 export default function RecordingModal({
+    isbn,
     setIsOpenModal,
 }: {
+    isbn: string
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }) {
     const [recordTag, setRecordTag] = useState<string>('quote')
@@ -29,6 +33,14 @@ export default function RecordingModal({
         setContent(e.target.value)
     }
 
+    const queryClient = useQueryClient()
+    const addRecordMutation = useMutation({
+        mutationFn: () =>
+            postRecord({ isbn, tag: recordTag, page: Number(page), content }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['record'] })
+        },
+    })
     const handleSaveRecord = () => {
         // page 유효성 검사
         if (Number.isNaN(Number(page))) {
@@ -39,6 +51,7 @@ export default function RecordingModal({
         console.log(recordTag)
         console.log(content)
         console.log(page)
+        addRecordMutation.mutate()
     }
 
     return (

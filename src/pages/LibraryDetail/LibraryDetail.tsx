@@ -85,7 +85,10 @@ export default function LibraryDetail() {
     return (
         <div>
             {isOpenRecordingModal && (
-                <RecordingModal setIsOpenModal={setIsOpenRecordingModal} />
+                <RecordingModal
+                    isbn={isbn ?? ''}
+                    setIsOpenModal={setIsOpenRecordingModal}
+                />
             )}
             {isOpenUpdateBookModal && (
                 <UpdateBookModal
