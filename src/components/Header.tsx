@@ -22,7 +22,7 @@ export default function Header() {
 
     return (
         <header className="flex justify-center w-full bg-primary">
-            <div className="flex flex-row justify-between p-3 w-[90rem]">
+            <div className="flex flex-row justify-between p-3 w-[70rem]">
                 <Link to="/">
                     <Logo />
                 </Link>
