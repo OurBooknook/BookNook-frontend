@@ -1,7 +1,7 @@
 import axios from 'axios'
 // import responseType from '../types/responseType'
 
-const postRecord = async ({
+export const postRecord = async ({
     isbn,
     tag,
     page,
@@ -25,4 +25,10 @@ const postRecord = async ({
     return response
 }
 
-export default postRecord
+export const deleteRecord = async (recordId: number) => {
+    const response = await axios.delete(
+        `${process.env.REACT_APP_API}/api/record/${recordId}`
+    )
+
+    return response
+}

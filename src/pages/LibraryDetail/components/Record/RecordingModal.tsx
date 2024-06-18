@@ -7,7 +7,7 @@ import {
 } from '@mui/material'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import React, { useState } from 'react'
-import postRecord from '../../../../services/record'
+import { postRecord } from '../../../../services/record'
 
 export default function RecordingModal({
     isbn,
