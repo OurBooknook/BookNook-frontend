@@ -36,7 +36,12 @@ export default function RecordingModal({
     const queryClient = useQueryClient()
     const addRecordMutation = useMutation({
         mutationFn: () =>
-            postRecord({ isbn, tag: recordTag, page: Number(page), content }),
+            postRecord({
+                isbn,
+                tag: recordTag.toUpperCase(),
+                page: Number(page),
+                content,
+            }),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['record'] })
         },
