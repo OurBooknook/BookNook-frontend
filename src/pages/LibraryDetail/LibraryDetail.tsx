@@ -158,7 +158,7 @@ export default function LibraryDetail() {
                         <p className="text-lg">
                             총{' '}
                             <span className="font-bold text-primary">
-                                {recordData?.recordList?.length ?? 0}
+                                {recordData?.recordDTOList?.length ?? 0}
                             </span>
                             개의 기록이 있습니다.
                         </p>
@@ -171,7 +171,7 @@ export default function LibraryDetail() {
                         </button>
                     </div>
                     <div>
-                        {recordData?.recordList?.map((record) => (
+                        {recordData?.recordDTOList?.map((record) => (
                             <Record value={record} key={record.recordId} />
                         ))}
                     </div>

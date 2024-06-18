@@ -25,7 +25,7 @@ export interface LibraryDetailType {
 export interface RecordListType {
     totalPages: number
     currentPage: number
-    recordList: RecordType[]
+    recordDTOList: RecordType[]
 }
 export interface RecordType {
     recordId: number

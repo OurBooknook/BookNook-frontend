@@ -1,14 +1,7 @@
 import { Chip } from '@mui/material'
 import React from 'react'
 import getFormattedDate from '../../../../utils/getFormattedDate'
-
-interface RecordType {
-    recordId: number
-    tag: string | null
-    date: string
-    content: string
-    page: number | null
-}
+import { RecordType } from '../../../../types/libraryType'
 
 export default function Record({ value }: { value: RecordType }) {
     return (
@@ -32,7 +25,7 @@ export default function Record({ value }: { value: RecordType }) {
             <div className="flex flex-col flex-1 justify-between min-h-20">
                 <p className="text-lg">{value.content}</p>
                 <div className="flex gap-4 justify-end text-gray text-sm">
-                    <span>{getFormattedDate(value.date)}</span>
+                    <span>{getFormattedDate(value.createdAt)}</span>
                     <button type="button" className="underline">
                         삭제
                     </button>
