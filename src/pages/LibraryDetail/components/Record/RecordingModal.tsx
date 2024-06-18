@@ -1,13 +1,62 @@
-import { FormControl, MenuItem, Select, TextField } from '@mui/material'
-import React from 'react'
+import {
+    FormControl,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    TextField,
+} from '@mui/material'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import React, { useState } from 'react'
+import postRecord from '../../../../services/record'
 
 export default function RecordingModal({
+    isbn,
     setIsOpenModal,
 }: {
+    isbn: string
     setIsOpenModal: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+    const [recordTag, setRecordTag] = useState<string>('quote')
+    const [page, setPage] = useState<string>('')
+    const [content, setContent] = useState<string>('')
     const handleCloseModal = () => {
         setIsOpenModal((prev) => !prev)
+    }
+
+    const handleSelectRecordTag = (e: SelectChangeEvent) => {
+        setRecordTag(e.target.value as string)
+    }
+    const handleChangePage = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPage(e.target.value)
+    }
+    const handleChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setContent(e.target.value)
+    }
+
+    const queryClient = useQueryClient()
+    const addRecordMutation = useMutation({
+        mutationFn: () =>
+            postRecord({
+                isbn,
+                tag: recordTag.toUpperCase(),
+                page: Number(page),
+                content,
+            }),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['record'] })
+        },
+    })
+    const handleSaveRecord = () => {
+        // page 유효성 검사
+        if (Number.isNaN(Number(page))) {
+            alert('page 입력이 올바르지 않습니다!')
+            return
+        }
+        // FIXME - 임시 코드
+        console.log(recordTag)
+        console.log(content)
+        console.log(page)
+        addRecordMutation.mutate()
     }
 
     return (
@@ -18,7 +67,11 @@ export default function RecordingModal({
                     <div className="flex gap-4 items-center">
                         <span className="w-20 text-gray">기록 태그</span>
                         <FormControl variant="standard" sx={{ minWidth: 200 }}>
-                            <Select label="기록 태그" defaultValue="quote">
+                            <Select
+                                label="기록 태그"
+                                defaultValue="quote"
+                                onChange={handleSelectRecordTag}
+                            >
                                 <MenuItem value="quote">인용</MenuItem>
                                 <MenuItem value="summary">줄거리</MenuItem>
                                 <MenuItem value="review">감상평</MenuItem>
@@ -29,10 +82,10 @@ export default function RecordingModal({
                     <div className="flex gap-4 items-center">
                         <span className="w-20 text-gray">페이지 번호</span>
                         <TextField
-                            type="number"
                             variant="standard"
                             sx={{ minWidth: 200 }}
                             placeholder="몇 페이지의 내용인가요?"
+                            onChange={handleChangePage}
                         />
                     </div>
                     <div className="flex flex-col gap-2">
@@ -40,6 +93,7 @@ export default function RecordingModal({
                         <textarea
                             placeholder="기록하고 싶은 내용을 입력하세요"
                             className="p-2 h-72 text-black bg-white rounded-md border-2 border-gray resize-none"
+                            onChange={handleChangeContent}
                         />
                     </div>
                 </div>
@@ -54,6 +108,7 @@ export default function RecordingModal({
                     <button
                         type="button"
                         className="text-lg font-bold px-4 py-2 bg-primary text-white rounded-md"
+                        onClick={handleSaveRecord}
                     >
                         저장
                     </button>
