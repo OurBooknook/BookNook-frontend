@@ -1,16 +1,20 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import Header from '../../components/Header'
 // import Wrapper from '../../components/Wrapper'
 import Footer from '../../components/Footer'
 import readingKingData from '../../data/readingKing.json'
 import ReadingKing from './components/ReadingKing'
-import bookRankingData from '../../data/top5.json'
-
 import getFormattedIsbn from '../../utils/getFormattedIsbn'
+import getBookRanking from '../../services/ranking'
 
 export default function Main() {
+    const { data: bookRankingData } = useQuery({
+        queryKey: ['bookRanking'],
+        queryFn: getBookRanking,
+    })
     return (
         <>
             <Header />
