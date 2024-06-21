@@ -1,7 +1,7 @@
 import axios from 'axios'
 import responseType from '../types/responseType'
 
-interface BookRankingType {
+export interface BookRankingType {
     bookRanking: {
         isbn: string
         count: number
