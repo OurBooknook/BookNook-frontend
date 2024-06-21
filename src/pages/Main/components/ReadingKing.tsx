@@ -21,7 +21,7 @@ export default function ReadingKing({
     }
 
     return (
-        <div className="flex flex-col justify-center items-center py-6 bg-primaryVariant rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
+        <div className="flex flex-col justify-center items-center px-12 py-6 bg-primaryVariant rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
             <div className="relative mb-2">
                 <Avatar
                     alt={`${nickname}의 프로필 사진`}
