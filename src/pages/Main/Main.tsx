@@ -1,20 +1,13 @@
 import React from 'react'
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
-import { Link } from 'react-router-dom'
-import { useQuery } from '@tanstack/react-query'
 import Header from '../../components/Header'
 // import Wrapper from '../../components/Wrapper'
 import Footer from '../../components/Footer'
 import readingKingData from '../../data/readingKing.json'
 import ReadingKing from './components/ReadingKing'
-import getFormattedIsbn from '../../utils/getFormattedIsbn'
-import getBookRanking from '../../services/ranking'
+import BookRanking from './components/BookRanking'
 
 export default function Main() {
-    const { data: bookRankingData } = useQuery({
-        queryKey: ['bookRanking'],
-        queryFn: getBookRanking,
-    })
     return (
         <>
             <Header />
@@ -43,7 +36,7 @@ export default function Main() {
                     />
                 </div>
                 <div className="w-full bg-primaryVariant pt-32">
-                    <div className="flex gap-6 w-[70rem] mx-auto">
+                    <div className="flex gap-12 w-[70rem] mx-auto">
                         <div>
                             <h2 className="text-2xl font-bold">
                                 이달의 독서왕 👑
@@ -105,33 +98,7 @@ export default function Main() {
                                 </Table>
                             </div>
                         </div>
-                        <div>
-                            <h2 className="text-2xl font-bold">
-                                📙 이달의 도서
-                            </h2>
-                            <p className="mb-6">
-                                BookNook Top5 도서입니다(읽은 책 기준)
-                            </p>
-                            <div>
-                                {bookRankingData?.bookRanking.map((book) => (
-                                    <div key={book.isbn}>
-                                        <img
-                                            src=""
-                                            alt={`${book.isbn} 도서 이미지`}
-                                        />
-                                        <div className="flex flex-col gap-1">
-                                            <Link
-                                                to={`/search/${getFormattedIsbn(book.isbn)}`}
-                                                className="text-xl font-bold hover:underline"
-                                            >
-                                                🏅{}
-                                            </Link>
-                                            <p>저자</p>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        <BookRanking />
                     </div>
                 </div>
             </div>
