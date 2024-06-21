@@ -102,7 +102,7 @@ export default function Main() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer backGround="primaryVariant" />
         </>
     )
 }
