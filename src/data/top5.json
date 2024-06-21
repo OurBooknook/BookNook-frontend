@@ -1,0 +1,24 @@
+{
+    "bookRanking": [
+        {
+            "isbn": "1234",
+            "count": 10
+        },
+        {
+            "isbn": "1235",
+            "count": 9
+        },
+        {
+            "isbn": "1236",
+            "count": 8
+        },
+        {
+            "isbn": "1237",
+            "count": 7
+        },
+        {
+            "isbn": "1238",
+            "count": 6
+        }
+    ]
+}
