@@ -22,12 +22,12 @@ export default function MonthlyAmount({ data }: { data: number[] }) {
     }, [data])
 
     return (
-        <BarChart width={800} height={400} data={monthly}>
+        <BarChart width={1120} height={400} data={monthly}>
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="amount" fill="#8884d8" />
+            <Bar dataKey="amount" fill="#1E863B" />
         </BarChart>
     )
 }
