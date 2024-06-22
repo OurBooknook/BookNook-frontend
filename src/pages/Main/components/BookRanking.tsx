@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { AxiosError } from 'axios'
-import getBookRanking, { BookRankingType } from '../../../services/ranking'
+import { getBookRanking, BookRankingType } from '../../../services/ranking'
 import getSearchBook, { BookData } from '../../../services/searchBook'
 import getFormattedIsbn from '../../../utils/getFormattedIsbn'
 

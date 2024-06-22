@@ -8,6 +8,7 @@ import BookDetail from './pages/BookDetail/BookDetail'
 import Library from './pages/Library/Library'
 import LoginPage from './pages/Login/LoginPage'
 import Main from './pages/Main/Main'
+import Statistics from './pages/Statistics/Statistics'
 
 const queryClient = new QueryClient()
 function App() {
@@ -21,7 +22,7 @@ function App() {
                     <Route path="/search/:isbn" element={<BookDetail />} />
                     <Route path="/library" element={<Library />} />
                     <Route path="/library/:isbn" element={<LibraryDetail />} />
-                    {/* <Route path="/statistics" element={<Statistics />} /> */}
+                    <Route path="/statistics" element={<Statistics />} />
                 </Routes>
             </BrowserRouter>
         </QueryClientProvider>
