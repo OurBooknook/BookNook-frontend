@@ -1,59 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from 'recharts'
 
-export default function MonthlyAmount() {
-    const dummyData = [
-        {
-            month: '1월',
-            amount: 10,
-        },
-        {
-            month: '2월',
-            amount: 10,
-        },
-        {
-            month: '3월',
-            amount: 10,
-        },
-        {
-            month: '4월',
-            amount: 10,
-        },
-        {
-            month: '5월',
-            amount: 10,
-        },
-        {
-            month: '6월',
-            amount: 10,
-        },
-        {
-            month: '7월',
-            amount: 10,
-        },
-        {
-            month: '8월',
-            amount: 10,
-        },
-        {
-            month: '9월',
-            amount: 10,
-        },
-        {
-            month: '10월',
-            amount: 10,
-        },
-        {
-            month: '11월',
-            amount: 10,
-        },
-        {
-            month: '12월',
-            amount: 10,
-        },
-    ]
+interface MonthlyType {
+    month: string
+    amount: number
+}
+export default function MonthlyAmount({ data }: { data: number[] }) {
+    const [monthly, setMonthly] = useState<MonthlyType[]>([])
+    useEffect(() => {
+        const arr: MonthlyType[] = []
+        data.forEach((value, index) => {
+            arr.push({
+                month: `${index}월`,
+                amount: value,
+            })
+        })
+
+        console.log(arr)
+
+        setMonthly(arr)
+    }, [data])
+
     return (
-        <BarChart width={800} height={400} data={dummyData}>
+        <BarChart width={800} height={400} data={monthly}>
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
