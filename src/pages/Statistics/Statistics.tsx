@@ -3,6 +3,7 @@ import { MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import Header from '../../components/Header'
 import Wrapper from '../../components/Wrapper'
 import Footer from '../../components/Footer'
+import MonthlyAmount from './components/MonthlyAmount'
 
 export default function Statistics() {
     const [year, setYear] = useState<string>('2024')
@@ -27,6 +28,7 @@ export default function Statistics() {
                         ))}
                     </Select>
                 </div>
+                <MonthlyAmount />
             </Wrapper>
             <Footer />
         </>
