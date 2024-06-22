@@ -11,7 +11,7 @@ export default function MonthlyAmount({ data }: { data: number[] }) {
         const arr: MonthlyType[] = []
         data.forEach((value, index) => {
             arr.push({
-                month: `${index}월`,
+                month: `${index + 1}월`,
                 amount: value,
             })
         })
