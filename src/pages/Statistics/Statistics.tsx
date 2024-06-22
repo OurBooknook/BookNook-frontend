@@ -28,8 +28,11 @@ export default function Statistics() {
         <>
             <Header />
             <Wrapper>
-                <div className="flex justify-between">
-                    <h1>통계</h1>
+                <div className="flex justify-between mb-10">
+                    <div className="flex flex-col gap-2">
+                        <h1 className="text-3xl font-bold">통계</h1>
+                        <p>연간 독서량과 월별 독서 통계를 확인해보세요!</p>
+                    </div>
                     <Select
                         value={year}
                         label="year"
@@ -43,6 +46,13 @@ export default function Statistics() {
                         ))}
                     </Select>
                 </div>
+                <p className="text-lg mb-10">
+                    {year}년에는 총{' '}
+                    <span className="font-bold text-primary">
+                        {yearData?.totalCnt}
+                    </span>
+                    권의 책을 읽으셨네요 👍
+                </p>
                 <MonthlyAmount data={yearData?.monthly ?? []} />
             </Wrapper>
             <Footer />
