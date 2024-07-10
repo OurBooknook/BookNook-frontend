@@ -15,7 +15,8 @@ export default function SearchItem({
             <img
                 src={searchResult.thumbnail}
                 alt={`${searchResult.title} 도서 이미지`}
-                className="w-28 h-40 "
+                width="112"
+                height="160"
             />
             {/* SECTION - 도서 정보 */}
             <div className="flex flex-col gap-1">
