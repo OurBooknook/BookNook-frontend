@@ -4,25 +4,25 @@
 
 @font-face {
     font-family: Pretendard;
-    src: url(Fonts/Pretendard-Regular.woff) format('woff');
+    src: url(fonts/Pretendard-Regular.woff2) format('woff2');
     font-weight: normal;
     font-display: swap;
 }
 @font-face {
     font-family: Pretendard;
-    src: url(Fonts/Pretendard-Bold.woff) format('woff');
+    src: url(fonts/Pretendard-Bold.woff2) format('woff2');
     font-weight: bold;
     font-display: swap;
 }
 @font-face {
     font-family: Pretendard;
-    src: url(Fonts/Pretendard-Light.woff) format('woff');
+    src: url(fonts/Pretendard-Light.woff2) format('woff2');
     font-weight: lighter;
     font-display: swap;
 }
 @font-face {
     font-family: Danjo;
-    src: url(Fonts/Danjo-bold-Regular.woff) format('woff');
+    src: url(fonts/Danjo-bold-Regular.woff2) format('woff2');
     font-weight: normal;
     font-display: swap;
 }
