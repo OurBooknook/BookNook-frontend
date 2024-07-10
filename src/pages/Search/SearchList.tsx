@@ -1,30 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Pagination } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 import Wrapper from '../../components/Wrapper'
 import SearchItem from './components/SearchItem'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import getSearchBook, { BookData } from '../../services/searchBook'
+import getSearchBook from '../../services/searchBook'
 import EmptyBookResult from '../../components/EmptyBookResult'
 
 const SIZE = 10
 export default function SearchList() {
-    const [searchResult, setSearchResult] = useState<BookData>()
     const [searchParams] = useSearchParams()
     const query = searchParams.get('query') ?? ''
     const [page, setPage] = useState<number>(1)
 
-    useEffect(() => {
-        if (query !== '') {
-            getSearchBook(query, page).then((result) => setSearchResult(result))
-        } else {
-            setSearchResult({
-                meta: { total_count: 0, pageable_count: 0, is_end: true },
-                documents: [],
-            })
-        }
-    }, [query, page])
+    const { data: searchList } = useQuery({
+        queryKey: ['search', query, page],
+        queryFn: () => getSearchBook(query, page),
+        staleTime: 5 * 1000 * 60,
+        gcTime: 10 * 1000 * 60,
+    })
 
     const countTotalPages = (cntItems: number) => {
         const totalPage = Math.floor(cntItems / SIZE) + 1
@@ -38,16 +34,16 @@ export default function SearchList() {
                 <p className="text-lg mb-6">
                     전체{' '}
                     <span className="font-bold text-primary">
-                        {searchResult && searchResult.meta.pageable_count}
+                        {searchList && searchList.meta.pageable_count}
                     </span>
                     건
                 </p>
                 <div className="flex flex-col gap-6">
-                    {searchResult &&
-                        (searchResult.meta.total_count === 0 ? (
+                    {searchList &&
+                        (searchList.meta.total_count === 0 ? (
                             <EmptyBookResult />
                         ) : (
-                            searchResult.documents.map((document) => (
+                            searchList.documents.map((document) => (
                                 <SearchItem
                                     searchResult={document}
                                     key={document.isbn}
@@ -59,8 +55,8 @@ export default function SearchList() {
                     <Pagination
                         page={page}
                         count={
-                            searchResult &&
-                            countTotalPages(searchResult.meta.pageable_count)
+                            searchList &&
+                            countTotalPages(searchList.meta.pageable_count)
                         }
                         onChange={(e, value) => setPage(value)}
                         size="large"
