@@ -4,9 +4,9 @@ import { FaGithub } from 'react-icons/fa'
 export default function Footer({ backGround }: { backGround?: string }) {
     return (
         <footer
-            className={`flex justify-center w-full border-t-[0.5px] border-lightGray bg-${backGround}`}
+            className={`flex justify-center w-full min-h-16 border-t-[0.5px] border-lightGray bg-${backGround}`}
         >
-            <div className="flex flex-row justify-between items-center p-4 w-[90rem] text-gray">
+            <div className="flex justify-between items-center p-4 w-[90rem] text-gray">
                 <p className="text-sm">
                     Copyright @ 2024 BookNook. All rights reserved.
                 </p>
@@ -22,7 +22,4 @@ export default function Footer({ backGround }: { backGround?: string }) {
             </div>
         </footer>
     )
-}
-Footer.defaultProps = {
-    backGround: 'white',
 }
