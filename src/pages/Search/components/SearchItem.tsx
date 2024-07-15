@@ -10,7 +10,7 @@ export default function SearchItem({
     searchResult: searchDocumentType
 }) {
     return (
-        <div className="w-full flex gap-4 pb-4 border-b-[0.5px] border-lightGray">
+        <div className="w-full max-h-40 flex gap-4 pb-4 border-b-[0.5px] border-lightGray">
             {/* SECTION - 이미지 */}
             <img
                 src={searchResult.thumbnail}
@@ -19,7 +19,7 @@ export default function SearchItem({
                 height="160"
             />
             {/* SECTION - 도서 정보 */}
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 text-sm">
                 <Link
                     to={`/search/${getFormattedIsbn(searchResult.isbn)}`}
                     className="text-xl font-bold hover:underline"
