@@ -2,6 +2,7 @@ import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import LibraryDetail from './pages/LibraryDetail/LibraryDetail'
 import SearchList from './pages/Search/SearchList'
 import BookDetail from './pages/BookDetail/BookDetail'
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/statistics" element={<Statistics />} />
                 </Routes>
             </BrowserRouter>
+            <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
     )
 }
