@@ -3,25 +3,25 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     src: url(fonts/Pretendard-Regular.woff2) format('woff2');
     font-weight: normal;
     font-display: swap;
 }
 @font-face {
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     src: url(fonts/Pretendard-Bold.woff2) format('woff2');
     font-weight: bold;
     font-display: swap;
 }
 @font-face {
-    font-family: Pretendard;
+    font-family: 'Pretendard';
     src: url(fonts/Pretendard-Light.woff2) format('woff2');
     font-weight: lighter;
     font-display: swap;
 }
 @font-face {
-    font-family: Danjo;
+    font-family: 'Danjo';
     src: url(fonts/Danjo-bold-Regular.woff2) format('woff2');
     font-weight: normal;
     font-display: swap;
