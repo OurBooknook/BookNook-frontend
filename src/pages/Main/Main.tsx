@@ -1,11 +1,8 @@
 import React from 'react'
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import Header from '../../components/Header'
-// import Wrapper from '../../components/Wrapper'
 import Footer from '../../components/Footer'
-import readingKingData from '../../data/readingKing.json'
-import ReadingKing from './components/ReadingKing'
 import BookRanking from './components/BookRanking'
+import ReadingKingContainer from './components/ReadingKingContainer'
 
 export default function Main() {
     return (
@@ -37,67 +34,7 @@ export default function Main() {
                 </div>
                 <div className="w-full bg-primaryVariant pt-32">
                     <div className="flex gap-12 w-[70rem] mx-auto">
-                        <div>
-                            <h2 className="text-2xl font-bold">
-                                이달의 독서왕 👑
-                            </h2>
-                            <p className="mb-6">
-                                이달의 독서왕은 사용자 중 가장 많은 책을 읽은
-                                top 10 입니다 (읽은 책 기준)
-                            </p>
-                            <div className="flex flex-col gap-8 mx-auto">
-                                <div className="grid grid-cols-3 gap-4">
-                                    {readingKingData?.readingKing.map(
-                                        (data) =>
-                                            data.rank <= 3 && (
-                                                <ReadingKing
-                                                    key={data.rank}
-                                                    rank={data.rank}
-                                                    profileImg={data.profileImg}
-                                                    nickname={data.nickname}
-                                                    books={data.books}
-                                                />
-                                            )
-                                    )}
-                                </div>
-                                <Table aria-label="독서왕 순위(4~10위)">
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell
-                                                align="center"
-                                                width={70}
-                                            >
-                                                순위
-                                            </TableCell>
-                                            <TableCell align="left">
-                                                이름
-                                            </TableCell>
-                                            <TableCell align="left">
-                                                권 수
-                                            </TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {readingKingData?.readingKing.map(
-                                            (data) =>
-                                                data.rank > 3 && (
-                                                    <TableRow key={data.rank}>
-                                                        <TableCell align="center">
-                                                            {data.rank}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {data.nickname}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {data.books}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                )
-                                        )}
-                                    </TableBody>
-                                </Table>
-                            </div>
-                        </div>
+                        <ReadingKingContainer />
                         <BookRanking />
                     </div>
                 </div>
