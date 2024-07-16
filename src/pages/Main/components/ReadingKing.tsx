@@ -1,49 +1,50 @@
-import { Avatar, Chip } from '@mui/material'
 import React from 'react'
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import readingKingData from '../../../data/readingKing.json'
+import ReadingKingItem from './ReadingKingItem'
 
-interface readingKingType {
-    rank: number
-    nickname: string
-    profileImg: string
-    books: number
-}
-
-export default function ReadingKing({
-    rank,
-    nickname,
-    profileImg,
-    books,
-}: readingKingType) {
-    const medal: { [key: number]: string } = {
-        1: '🥇',
-        2: '🥈',
-        3: '🥉',
-    }
-
+export default function ReadingKing() {
     return (
-        <div className="flex flex-col justify-center items-center px-12 py-6 bg-primaryVariant rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
-            <div className="relative mb-2">
-                <Avatar
-                    alt={`${nickname}의 프로필 사진`}
-                    src={profileImg}
-                    sx={{ width: 80, height: 80 }}
-                />
-                <span className="absolute -top-2 -right-2 text-4xl">
-                    {medal[rank]}
-                </span>
+        <div className="flex flex-col gap-8 mx-auto">
+            <div className="grid grid-cols-3 gap-4">
+                {readingKingData?.readingKing.map(
+                    (data) =>
+                        data.rank <= 3 && (
+                            <ReadingKingItem
+                                key={data.rank}
+                                rank={data.rank}
+                                profileImg={data.profileImg}
+                                nickname={data.nickname}
+                                books={data.books}
+                            />
+                        )
+                )}
             </div>
-            <h3 className="text-lg font-bold mb-1">{nickname}</h3>
-            <Chip
-                label={`📚 ${books}권`}
-                color="success"
-                size="small"
-                sx={{
-                    fontSize: 14,
-                    paddingX: 0.5,
-                    paddingY: 1,
-                    fontWeight: 'bold',
-                }}
-            />
+            <Table aria-label="독서왕 순위(4~10위)">
+                <TableHead>
+                    <TableRow>
+                        <TableCell align="center" width={70}>
+                            순위
+                        </TableCell>
+                        <TableCell align="left">이름</TableCell>
+                        <TableCell align="left">권 수</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {readingKingData?.readingKing.map(
+                        (data) =>
+                            data.rank > 3 && (
+                                <TableRow key={data.rank}>
+                                    <TableCell align="center">
+                                        {data.rank}
+                                    </TableCell>
+                                    <TableCell>{data.nickname}</TableCell>
+                                    <TableCell>{data.books}</TableCell>
+                                </TableRow>
+                            )
+                    )}
+                </TableBody>
+            </Table>
         </div>
     )
 }
