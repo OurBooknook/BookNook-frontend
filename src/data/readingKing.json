@@ -1,14 +1,14 @@
 {
     "readingKing": [
-        { "rank": 1, "nickname": "dahee", "profileImg": "", "books": 15 },
-        { "rank": 2, "nickname": "hyunjung", "profileImg": "", "books": 14 },
-        { "rank": 3, "nickname": "sumin", "profileImg": "", "books": 13 },
-        { "rank": 4, "nickname": "dahee", "profileImg": "", "books": 12 },
-        { "rank": 5, "nickname": "dahee", "profileImg": "", "books": 11 },
-        { "rank": 6, "nickname": "dahee", "profileImg": "", "books": 10 },
-        { "rank": 7, "nickname": "dahee", "profileImg": "", "books": 9 },
-        { "rank": 8, "nickname": "dahee", "profileImg": "", "books": 8 },
-        { "rank": 9, "nickname": "dahee", "profileImg": "", "books": 7 },
-        { "rank": 10, "nickname": "dahee", "profileImg": "", "books": 6 }
+        { "rank": 1, "nickname": "수민", "profileImg": "", "books": 15 },
+        { "rank": 2, "nickname": "현정", "profileImg": "", "books": 14 },
+        { "rank": 3, "nickname": "다희", "profileImg": "", "books": 13 },
+        { "rank": 4, "nickname": "재웅", "profileImg": "", "books": 12 },
+        { "rank": 5, "nickname": "동근", "profileImg": "", "books": 11 },
+        { "rank": 6, "nickname": "인하", "profileImg": "", "books": 10 },
+        { "rank": 7, "nickname": "유영", "profileImg": "", "books": 9 },
+        { "rank": 8, "nickname": "보람", "profileImg": "", "books": 8 },
+        { "rank": 9, "nickname": "가람", "profileImg": "", "books": 7 },
+        { "rank": 10, "nickname": "백호", "profileImg": "", "books": 6 }
     ]
 }
