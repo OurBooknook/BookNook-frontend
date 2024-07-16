@@ -1,5 +1,12 @@
 import React from 'react'
-import { Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
+import {
+    Avatar,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+} from '@mui/material'
 import readingKingData from '../../../data/readingKing.json'
 import ReadingKingItem from './ReadingKingItem'
 
@@ -38,7 +45,16 @@ export default function ReadingKing() {
                                     <TableCell align="center">
                                         {data.rank}
                                     </TableCell>
-                                    <TableCell>{data.nickname}</TableCell>
+                                    <TableCell
+                                        sx={{
+                                            display: 'flex',
+                                            gap: 2,
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <Avatar>{data.profileImg}</Avatar>
+                                        {data.nickname}
+                                    </TableCell>
                                     <TableCell>{data.books}</TableCell>
                                 </TableRow>
                             )
