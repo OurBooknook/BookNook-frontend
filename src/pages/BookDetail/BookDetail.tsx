@@ -74,22 +74,13 @@ export default function BookDetail() {
                             </div>
                             <p>{searchDocument?.contents}</p>
                         </div>
-                        <div className="flex flex-col gap-2 w-fit">
-                            <p className="text-xl">
-                                담은 사람{' '}
-                                <span className="font-bold text-primary">
-                                    n
-                                </span>
-                                명
-                            </p>
-                            <button
-                                type="button"
-                                className="flex gap-2 items-center px-6 py-3 bg-primary text-white text-xl rounded-md "
-                                onClick={() => setIsOpenModal(true)}
-                            >
-                                <FaBookmark />내 서재에 담기
-                            </button>
-                        </div>
+                        <button
+                            type="button"
+                            className="flex gap-2 items-center w-fit px-6 py-3 bg-primary text-white text-xl rounded-md "
+                            onClick={() => setIsOpenModal(true)}
+                        >
+                            <FaBookmark />내 서재에 담기
+                        </button>
                     </div>
                 </div>
             </Wrapper>
