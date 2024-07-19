@@ -12,10 +12,12 @@ import { searchDocumentType } from '../../types/searchResultType'
 import getFormattedDate from '../../utils/getFormattedDate'
 import { LibraryDetailType } from '../../types/libraryType'
 import { getLibraryDetail } from '../../services/library'
+import UpdateBookModal from '../LibraryDetail/components/UpdateBookModal'
 
 export default function BookDetail() {
     const { isbn } = useParams()
-    const [isOpenModal, setIsOpenModal] = useState<boolean>(false)
+    const [isOpenAddModal, setIsOpenAddModal] = useState<boolean>(false)
+    const [isOpenUpdateModal, setIsOpenUpdateModal] = useState<boolean>(false)
     const [searchDocument, setSearchDocument] = useState<searchDocumentType>()
 
     useEffect(() => {
@@ -34,11 +36,28 @@ export default function BookDetail() {
         queryFn: () => getLibraryDetail(isbn ?? ''),
     })
 
+    const handleOpenModal = () => {
+        // 새로운 책 담기
+        if (isLoading || libraryDetailData === undefined) {
+            setIsOpenAddModal(true)
+        }
+        // 담긴 책 수정하기
+        else {
+            setIsOpenUpdateModal(true)
+        }
+    }
+
     return (
         <>
-            {isOpenModal && (
+            {isOpenAddModal && (
                 <AddBookModal
-                    setIsOpenModal={setIsOpenModal}
+                    setIsOpenModal={setIsOpenAddModal}
+                    isbn={isbn ?? ''}
+                />
+            )}
+            {isOpenUpdateModal && (
+                <UpdateBookModal
+                    setIsOpenModal={setIsOpenUpdateModal}
                     isbn={isbn ?? ''}
                 />
             )}
@@ -89,7 +108,7 @@ export default function BookDetail() {
                         <button
                             type="button"
                             className="flex gap-2 items-center w-fit px-6 py-3 bg-primary text-white text-xl rounded-md "
-                            onClick={() => setIsOpenModal(true)}
+                            onClick={handleOpenModal}
                         >
                             <FaBookmark />
                             {isLoading || libraryDetailData === undefined
