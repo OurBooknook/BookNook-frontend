@@ -35,7 +35,7 @@ export default function Record({ value }: { value: RecordType }) {
             )}
             <div className="flex flex-col flex-1 justify-between min-h-20">
                 <p className="text-lg">{value.content}</p>
-                <div className="flex gap-4 justify-end text-gray text-sm">
+                <div className="flex gap-4 justify-end items-center text-gray text-sm">
                     {value.tag && (
                         <Chip
                             label={
@@ -46,9 +46,9 @@ export default function Record({ value }: { value: RecordType }) {
                             sx={{
                                 backgroundColor: '#1E863B',
                                 color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: '1rem',
+                                fontSize: '0.8rem',
                             }}
+                            size="small"
                         />
                     )}
                     <span>{getFormattedDateTime(value.createdAt)}</span>
