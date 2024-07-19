@@ -43,7 +43,7 @@ export default function RecordingModal({
                 content,
             }),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['record'] })
+            queryClient.invalidateQueries({ queryKey: ['records'] })
             setIsOpenModal((prev) => !prev)
         },
     })
