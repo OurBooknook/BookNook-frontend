@@ -28,31 +28,29 @@ export default function Record({ value }: { value: RecordType }) {
 
     return (
         <div className="flex gap-4 p-4 border-b-[0.5px] border-gray">
-            <div className="flex flex-col gap-2 items-center">
-                {value.tag && (
-                    <Chip
-                        label={
-                            recordTagKo[
-                                value.tag.toLowerCase() as keyof RecordTagKoType
-                            ]
-                        }
-                        sx={{
-                            backgroundColor: '#1E863B',
-                            color: 'white',
-                            fontWeight: 'bold',
-                            fontSize: '1rem',
-                        }}
-                    />
-                )}
-                {!value.page ? (
-                    ''
-                ) : (
-                    <span className="text-lg font-bold">p. {value.page}</span>
-                )}
-            </div>
+            {!value.page ? (
+                ''
+            ) : (
+                <span className="text-lg font-bold">p. {value.page}</span>
+            )}
             <div className="flex flex-col flex-1 justify-between min-h-20">
                 <p className="text-lg">{value.content}</p>
                 <div className="flex gap-4 justify-end text-gray text-sm">
+                    {value.tag && (
+                        <Chip
+                            label={
+                                recordTagKo[
+                                    value.tag.toLowerCase() as keyof RecordTagKoType
+                                ]
+                            }
+                            sx={{
+                                backgroundColor: '#1E863B',
+                                color: 'white',
+                                fontWeight: 'bold',
+                                fontSize: '1rem',
+                            }}
+                        />
+                    )}
                     <span>{getFormattedDateTime(value.createdAt)}</span>
                     <button
                         type="button"
