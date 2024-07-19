@@ -172,7 +172,7 @@ export default function LibraryDetail() {
                             기록 추가하기
                         </button>
                     </div>
-                    <div>
+                    <div className="mb-8">
                         {recordData?.recordDTOList?.map((record) => (
                             <Record value={record} key={record.recordId} />
                         ))}
