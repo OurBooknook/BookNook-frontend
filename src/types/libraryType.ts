@@ -1,14 +1,24 @@
 import { Status } from './bookType'
 
 // Record의 태그(감상평, 인용, 줄거리, 의문점)
-const tag = {
+const recordTag = {
     review: 'review',
     quote: 'quote',
     summary: 'summary',
     question: 'question',
 } as const
-
-export type Tag = (typeof tag)[keyof typeof tag]
+export type RecordTag = (typeof recordTag)[keyof typeof recordTag]
+// 기록 태그(인용, 줄거리, 감상평, 의문점)
+export type RecordTagKoType = Record<
+    'quote' | 'summary' | 'review' | 'question',
+    string
+>
+export const recordTagKo: RecordTagKoType = {
+    quote: '인용',
+    summary: '줄거리',
+    review: '감상평',
+    question: '의문점',
+}
 
 // 서재 상세 데이터 타입
 export interface LibraryDetailType {
@@ -30,7 +40,7 @@ export interface RecordListType {
 export interface RecordType {
     recordId: number
     page: number | null
-    tag: Tag
+    tag: RecordTag
     date: string
     content: string
     createdAt: string

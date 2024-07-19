@@ -43,7 +43,8 @@ export default function RecordingModal({
                 content,
             }),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['record'] })
+            queryClient.invalidateQueries({ queryKey: ['records'] })
+            setIsOpenModal((prev) => !prev)
         },
     })
     const handleSaveRecord = () => {
@@ -52,10 +53,7 @@ export default function RecordingModal({
             alert('page 입력이 올바르지 않습니다!')
             return
         }
-        // FIXME - 임시 코드
-        console.log(recordTag)
-        console.log(content)
-        console.log(page)
+
         addRecordMutation.mutate()
     }
 

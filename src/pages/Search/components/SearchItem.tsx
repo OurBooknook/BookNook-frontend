@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import getFormattedDate from '../../../utils/getFormattedDate'
+import { getFormattedDate } from '../../../utils/getFormattedDate'
 import getFormattedIsbn from '../../../utils/getFormattedIsbn'
 import { searchDocumentType } from '../../../types/searchResultType'
 
