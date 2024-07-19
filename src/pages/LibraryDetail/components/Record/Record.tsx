@@ -35,7 +35,9 @@ export default function Record({ value }: { value: RecordType }) {
                         }}
                     />
                 )}
-                {value.page && (
+                {!value.page ? (
+                    ''
+                ) : (
                     <span className="text-lg font-bold">p. {value.page}</span>
                 )}
             </div>
