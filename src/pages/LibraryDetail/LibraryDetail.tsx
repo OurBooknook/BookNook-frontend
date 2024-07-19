@@ -64,14 +64,10 @@ export default function LibraryDetail() {
     const deleteLibraryMutation = useMutation({
         mutationFn: () => deleteLibrary(isbn ?? ''),
         onSuccess: () => {
+            navigate('/library')
             queryClient.invalidateQueries({
                 queryKey: ['library'],
             })
-
-            alert(
-                '해당 도서가 서재에서 삭제되었습니다! 3초 후 서재로 이동합니다!'
-            )
-            setTimeout(() => navigate('/library'), 3000)
         },
         onError: (error) => {
             console.log(error)
@@ -79,7 +75,13 @@ export default function LibraryDetail() {
     })
 
     const handleDeleteLibrary = () => {
-        deleteLibraryMutation.mutate()
+        if (
+            window.confirm(
+                '해당 도서를 서재에서 삭제하시겠습니까?\n도서 삭제 시 작성된 독서 기록도 모두 삭제됩니다!'
+            )
+        ) {
+            deleteLibraryMutation.mutate()
+        }
     }
 
     return (
