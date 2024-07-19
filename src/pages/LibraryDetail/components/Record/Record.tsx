@@ -11,15 +11,15 @@ export default function Record({ value }: { value: RecordType }) {
         mutationFn: () => deleteRecord(value.recordId),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['records'] })
-            alert(`${value.recordId}를 성공적으로 삭제했습니다`)
         },
         onError: (error) => {
             console.log('error 발생', error)
         },
     })
-    const handleDeleteRecord = (id: number) => {
-        alert(`${id}을 삭제합니다.`)
-        deleteRecordMutation.mutate()
+    const handleDeleteRecord = () => {
+        if (window.confirm(`기록을 삭제하시겠습니까?`)) {
+            deleteRecordMutation.mutate()
+        }
     }
     return (
         <div className="flex gap-4 p-4 border-b-[0.5px] border-gray">
@@ -48,7 +48,7 @@ export default function Record({ value }: { value: RecordType }) {
                     <button
                         type="button"
                         className="underline"
-                        onClick={() => handleDeleteRecord(value.recordId)}
+                        onClick={handleDeleteRecord}
                     >
                         삭제
                     </button>
