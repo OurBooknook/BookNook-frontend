@@ -2,7 +2,11 @@ import { Chip } from '@mui/material'
 import React from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { getFormattedDateTime } from '../../../../utils/getFormattedDate'
-import { RecordType } from '../../../../types/libraryType'
+import {
+    RecordTagKoType,
+    RecordType,
+    recordTagKo,
+} from '../../../../types/libraryType'
 import { deleteRecord } from '../../../../services/record'
 
 export default function Record({ value }: { value: RecordType }) {
@@ -21,12 +25,17 @@ export default function Record({ value }: { value: RecordType }) {
             deleteRecordMutation.mutate()
         }
     }
+
     return (
         <div className="flex gap-4 p-4 border-b-[0.5px] border-gray">
             <div className="flex flex-col gap-2 items-center">
                 {value.tag && (
                     <Chip
-                        label={value.tag}
+                        label={
+                            recordTagKo[
+                                value.tag.toLowerCase() as keyof RecordTagKoType
+                            ]
+                        }
                         sx={{
                             backgroundColor: '#1E863B',
                             color: 'white',
