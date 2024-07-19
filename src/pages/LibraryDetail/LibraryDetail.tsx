@@ -42,7 +42,7 @@ export default function LibraryDetail() {
 
     const { data: libraryDetailData } = useQuery<LibraryDetailType, AxiosError>(
         {
-            queryKey: ['bookDetail'],
+            queryKey: ['bookDetail', isbn],
             queryFn: () => getLibraryDetail(isbn ?? ''),
         }
     )
@@ -55,7 +55,7 @@ export default function LibraryDetail() {
 
     useEffect(() => {
         setRecordPage(recordData?.currentPage ?? 1)
-        console.log(libraryDetailData?.status)
+        console.log('libraryDetailData', libraryDetailData?.status)
     }, [recordData])
 
     const navigate = useNavigate()
