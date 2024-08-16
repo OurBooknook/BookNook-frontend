@@ -19,12 +19,15 @@ export default function Main() {
                             책을 서재에 담고, <br />
                             독서를 하며 기억하고 싶은 내용을 기록하세요
                         </p>
+                        {/* NOTE - 완성되지 않은 버튼 주석 처리 */}
+                        {/* 
                         <button
                             type="button"
                             className="text-white border-white rounded-3xl border-[1px] py-2 px-3 w-fit"
                         >
                             이달의 독서왕 확인하기
-                        </button>
+                        </button> 
+                        */}
                     </div>
                     <img
                         src="reading.png"
